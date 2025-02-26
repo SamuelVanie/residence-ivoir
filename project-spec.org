@@ -1,0 +1,42 @@
+* Spécifications du projet
+
+
+** Description des pages
+
+- Tous les boutons nous contacter doivent rediriger vers whatsapp par défaut
+
+
+*** Navigation bar
+
+- Logo de l'entreprise (clic dessus doit diriger vers page d'acceuil)
+- Acceuil pour diriger vers la page d'acceuil
+- Afficher les contacts au milieu de la nav bar
+- Page réservation (pour la liste des résidences)
+
+
+
+*** Footer
+
+- Description de la page (avec le logo)
+- Contact
+- Menu avec les meme page de la navigation bar
+
+*** Page d'acceuil
+
+
+- Afficher une description des services de résidence ivoir
+- Modal pour filtrer les résidences en fonction du jour d'arrivé, du nombre de personnes (seul les résidences inoccupées seront affichées sur la *page d'affichage des résidences*)
+- Scrolling présentant quelques résidences (avec les prix et les noms)
+  + Un bouton pour afficher plus (diriger vers *la page qui affiche toutes les résidences*)
+  + Les prix ont un prix promo et un prix non promo
+- Un bouton pour afficher la liste complète (dans la navigation bar)
+- Afficher les contacts mail, téléphone, et autre dans la navigation bar
+- Afficher des avis de clients
+
+
+*** Page réservation
+
+- Des champs au dessus pour filtrer les résultats, en fonction du lieu (*Yamoussoukro activé par défaut pour l'instant*), de la date de réservation pour afficher que les résidences disponibles.
+- Permettre la recherche par nom (mettre un bouton pour faire la recherche par nom au niveau des résultats)
+
+
