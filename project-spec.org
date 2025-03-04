@@ -14,7 +14,6 @@
 - Page réservation (pour la liste des résidences)
 
 
-
 *** Footer
 
 - Description de la page (avec le logo)

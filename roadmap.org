@@ -1,0 +1,70 @@
+* Project Roadmap for Loaning Residence Application
+
+** Phase 1: Planning and Setup [3/4]
+- [X] Define project requirements and scope
+  - Estimate: 2 hours
+- [X] Set up the Django project structure
+  - Estimate: 2 hours
+- [X] Install necessary packages (e.g., Django, Django REST framework, etc.)
+  - Estimate: 1 hour
+- [ ] Configure database settings (SQLite for MVP)
+  - Estimate: 1 hour
+
+** Phase 2: Model Design and Database Setup [0/3]
+- [ ] Create a `Residence` model with fields for characteristics (e.g., number of rooms, price, location, description, etc.)
+   - Estimate: 3 hours
+- [ ] Create a migration file and apply it to the database
+   - Estimate: 1 hour
+- [ ] Add admin interface for managing residences (add, modify, delete)
+   - Estimate: 2 hours
+
+** Phase 3: Frontend and Backend Integration [0/4]
+- [ ] Create views to list all residences
+   - Estimate: 3 hours
+- [ ] Implement filtering by number of rooms
+   - Estimate: 3 hours
+- [ ] Implement filtering by budget
+   - Estimate: 3 hours
+- [ ] Create templates for displaying residence listings with filters
+   - Estimate: 4 hours
+
+** Phase 4: Reservation Functionality [0/2]
+- [ ] Add a reservation button for each residence
+   - Estimate: 2 hours
+- [ ] Integrate redirection to WhatsApp or SMS with a predefined template
+   - Estimate: 4 hours
+   - Note: Research and implement URL schemes for WhatsApp/SMS integration.
+
+** Phase 5: Admin Interface Enhancements [0/2]
+- [ ] Customize the admin interface for better usability
+   - Estimate: 2 hours
+- [ ] Add validation rules for residence data entry
+   - Estimate: 2 hours
+
+** Phase 6: Testing and Debugging [0/3]
+- [ ] Perform unit testing for models, views, and filters
+   - Estimate: 4 hours
+- [ ] Conduct end-to-end testing for user flows (listing, filtering, reservation)
+   - Estimate: 3 hours
+- [ ] Fix any bugs or issues identified during testing
+   - Estimate: 2 hours
+
+** Phase 7: Deployment Preparation [0/3]
+- [ ] Set up a staging environment for testing deployment
+   - Estimate: 2 hours
+- [ ] Write deployment documentation
+   - Estimate: 2 hours
+- [ ] Prepare the application for deployment (e.g., collect static files, set up environment variables)
+   - Estimate: 2 hours
+
+** Phase 8: Deployment [0/2]
+- [ ] Deploy the application to a hosting platform (e.g., Heroku, AWS, etc.)
+   - Estimate: 3 hours
+- [ ] Monitor the application post-deployment for any issues
+   - Estimate: 2 hours
+
+     
+#+begin_note
+Total Estimated Time: ~45 hours
+#+end_note
+
