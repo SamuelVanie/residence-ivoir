@@ -1,41 +1,89 @@
-* Spécifications du projet
+* Project Specifications
+
+This project will be built using Django (the Python web application framework). It will include an administration panel allowing the site administrator to manage site information.
 
 
-** Description des pages
+** Page Descriptions
 
-- Tous les boutons nous contacter doivent rediriger vers whatsapp par défaut
+- All "Contact Us" buttons should redirect to WhatsApp or sms. The user will be asked to choose.
+
+  
+*** Admin Page
+
+- Admin should be able to change the information of the residences.
+- Admin should be able to add new residences
+- Admin should be able to delete residences
+- Admin should be able to change the contact number
 
 
-*** Navigation bar
+*** Navigation Bar
 
-- Logo de l'entreprise (clic dessus doit diriger vers page d'acceuil)
-- Acceuil pour diriger vers la page d'acceuil
-- Afficher les contacts au milieu de la nav bar
-- Page réservation (pour la liste des résidences)
+- Company logo (clicking it should lead to the homepage)
+- "Home" link to the homepage
+- "Reservation" page (listing residences)
+- About Us, that will send to the part of the homepage that talks about the services
+- Display contact information in the middle of the nav bar.
 
-
+  
 *** Footer
 
-- Description de la page (avec le logo)
-- Contact
-- Menu avec les meme page de la navigation bar
+- Company logo (same behavior as the nav bar)
+- Some social networks icons
+- The phone number of the company
+- Navigation tree for the pages of the site
 
-*** Page d'acceuil
+  
+*** Homepage
 
+- Display a description of Ivoire Résidences' services.
+- A scrolling section showcasing some residences
+  + A button to "Show More" (leading to *the page displaying all residences (Reservation Page)*)
+- A button to display the complete list (also in the navigation bar).
+- A modal that permit to contact the company. The modal will redirect to whatsapp/sms with a template message ready and completed with the user information.
 
-- Afficher une description des services de résidence ivoir
-- Modal pour filtrer les résidences en fonction du jour d'arrivé, du nombre de personnes (seul les résidences inoccupées seront affichées sur la *page d'affichage des résidences*)
-- Scrolling présentant quelques résidences (avec les prix et les noms)
-  + Un bouton pour afficher plus (diriger vers *la page qui affiche toutes les résidences*)
-  + Les prix ont un prix promo et un prix non promo
-- Un bouton pour afficher la liste complète (dans la navigation bar)
-- Afficher les contacts mail, téléphone, et autre dans la navigation bar
-- Afficher des avis de clients
+**** Contact modal
 
+Will redirect to whatsapp/sms (asking before to the user) with the client's name and the message filled in the text section, building a ready to send message to whatsapp or sms.
 
-*** Page réservation
+- Nom (the lastname of the client)
+- Prénoms (the first names of the client)
+- Votre message (the message that will be sent to the company phone number)
 
-- Des champs au dessus pour filtrer les résultats, en fonction du lieu (*Yamoussoukro activé par défaut pour l'instant*), de la date de réservation pour afficher que les résidences disponibles.
-- Permettre la recherche par nom (mettre un bouton pour faire la recherche par nom au niveau des résultats)
+  
+*** Reservation Page
 
+This page shows the complete list of the residences available. Only a limited number of residences will get displayed on each page.
+
+- There should be a page navigation feature at the bottom of the page. Some numbers to quickly change the page.
+
+- Filter fields at the top to filter results based on location (*Yamoussoukro enabled by default for now*) and reservation date, to show only available residences.
+  
+- Prices should display both promotional and regular prices.
+
+- The user should be able to filter by the number of rooms they needs.
+
+- Should also be able to filter by their budget.
+  + 50 000   FCFCA - 100 000 FCFCA
+  + 100 000  FCFCA - 150 000 FCFCA
+  + 150 000  FCFCA - 200 000 FCFCA
+  + 200 000  FCFCA - 250 000 FCFCA
+  + 250 000+ FCFCA 
+
+- Allow searching by name (with a button to initiate the search within the results).
+
+- Show the project the residence that are already occupied in transparent gray with the ending time of the reservation.
+
+** Models
+
+*** Residence
+
+- name (CharField)
+- location (CharField, default: Yamoussoukro)
+- description (TextField)
+- rooms (IntegerField)
+- price (IntegerField)
+- promotional_price (IntegerField, nullable)
+- is_available (boolean)
+- next_availability (DateField, nullable)
+- image (ImageField)
 

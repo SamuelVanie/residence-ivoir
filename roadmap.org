@@ -1,13 +1,13 @@
 * Project Roadmap for Loaning Residence Application
 
-** Phase 1: Planning and Setup [3/4]
+** Phase 1: Planning and Setup [4/4]
 - [X] Define project requirements and scope
   - Estimate: 2 hours
 - [X] Set up the Django project structure
   - Estimate: 2 hours
 - [X] Install necessary packages (e.g., Django, Django REST framework, etc.)
   - Estimate: 1 hour
-- [ ] Configure database settings (SQLite for MVP)
+- [X] Configure database settings (SQLite for MVP)
   - Estimate: 1 hour
 
 ** Phase 2: Model Design and Database Setup [0/3]
