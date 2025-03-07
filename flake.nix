@@ -16,6 +16,7 @@
           buildInputs = with pkgs; [
             python313
             python313Packages.django
+            python313Packages.pillow
           ];
 
           shellHook = ''
