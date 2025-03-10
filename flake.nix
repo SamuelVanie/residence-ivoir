@@ -14,9 +14,10 @@
       {
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
-            python313
-            python313Packages.django
-            python313Packages.pillow
+            python312
+            python312Packages.django
+            python312Packages.pillow
+            python312Packages.flake8
           ];
 
           shellHook = ''

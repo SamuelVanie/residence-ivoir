@@ -6,18 +6,18 @@
 - [X] Set up the Django project structure
   - Estimate: 2 hours
 - [X] Install necessary packages (e.g., Django, Django REST framework, etc.)
-  - Estimate: 1 hour
+ - Estimate: 1 hour
 - [X] Configure database settings (SQLite for MVP)
   - Estimate: 1 hour
 
-** Phase 2: Model Design and Database Setup [0/4]
-- [ ] Create a `Residence` model with fields for characteristics (e.g., number of rooms, price, location, description, etc.)
+** Phase 2: Model Design and Database Setup [4/4]
+- [X] Create a `Residence` model with fields for characteristics (e.g., number of rooms, price, location, description, etc.)
   - Estimate: 3 hours
-- [ ] Create a migration file and apply it to the database
+- [X] Create a migration file and apply it to the database
   - Estimate: 1 hour
-- [ ] Add admin interface for managing residences (add, modify, delete)
+- [X] Add admin interface for managing residences (add, modify, delete)
   - Estimate: 2 hours
-- [ ] Add the possibility to change the phone number for the admin
+- [X] Add the possibility to change the phone number for the admin
 
 ** Phase 3: Frontend and Backend Integration [0/4]
 - [ ] Create views to list all residences
@@ -28,8 +28,8 @@
   - Estimate: 3 hours
 - [ ] Create templates for displaying residence listings with filters
   - Estimate: 4 hours
-- [ ] Create the homepage 
-     
+- [ ] Create the homepage
+
 
 ** Phase 4: Reservation Functionality [0/2]
 - [ ] Add a reservation button for each residence
@@ -66,8 +66,7 @@
 - [ ] Monitor the application post-deployment for any issues
    - Estimate: 2 hours
 
-     
+
 #+begin_note
 Total Estimated Time: ~45 hours
 #+end_note
-
