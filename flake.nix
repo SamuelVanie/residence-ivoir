@@ -14,7 +14,6 @@
       {
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
-            python312
             python312Packages.django
             python312Packages.pillow
             python312Packages.flake8
