@@ -1,6 +1,12 @@
 * Rules for the Residence loaning application
 
 
+** Dependencies
+
+- Django == 4.2.19
+- pillow == 11.1.0
+
+
 ** General Rules
 
 - Before proposing any changes, perform a dependency analysis to identify all files, functions, and components that directly or indirectly depend on the code being modified. Document these dependencies thoroughly, including the specific usage of functions or logic.
