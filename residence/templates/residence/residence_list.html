@@ -1,14 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
+  <head>
     <title>Residence List</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Residences</h1>
     <ul>
-        {% for residence in residences %}
-            <li>{{ residence.name }} - {{ residence.location }} - Price: {{ residence.price }}</li>
-        {% endfor %}
+      {% for residence in residences %}
+      <li>
+        {{ residence.name }} - {{ residence.location }} - Price: {{ residence.price }} - {{ residence.promotional_price }} - {{ residence.is_available }}
+      </li>
+      <img src="{{ residence.image.url }}" alt="{{ residence.name }} image" />
+      {% endfor %}
     </ul>
-</body>
+  </body>
 </html>
