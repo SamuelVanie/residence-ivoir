@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Residence List</title>
+</head>
+<body>
+    <h1>Residences</h1>
+    <ul>
+        {% for residence in residences %}
+            <li>{{ residence.name }} - {{ residence.location }} - Price: {{ residence.price }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
