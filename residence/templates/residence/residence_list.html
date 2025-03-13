@@ -3,15 +3,43 @@
   <head>
     <title>Residence List</title>
   </head>
+
   <body>
     <h1>Residences</h1>
-    <ul>
-      {% for residence in residences %}
-      <li>
-        {{ residence.name }} - {{ residence.location }} - Price: {{ residence.price }} - {{ residence.promotional_price }} - {{ residence.is_available }}
-      </li>
-      <img src="{{ residence.image.url }}" alt="{{ residence.name }} image" />
-      {% endfor %}
-    </ul>
+
+    <div>
+      <label for="roomFilter">Filter by number of rooms:</label>
+      <input type="number" id="roomFilter" name="rooms">
+      <button onclick="filterResidences()">Filter</button>
+    </div>
+
+    <div id="residenceList">
+      <ul>
+        {% for residence in residences %}
+        <li>
+          {{ residence.name }} - {{ residence.location }} - Price: {{ residence.price }} - {{ residence.promotional_price }} - {{ residence.is_available }}
+          <img src="{{ residence.image.url }}" alt="{{ residence.name }} image" style="max-width: 100px; height: auto;">
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <script>
+      function filterResidences() {
+        const rooms = document.getElementById('roomFilter').value;
+        const residenceListDiv = document.getElementById('residenceList');
+
+        fetch(`/api/residences/filter_by_rooms/?rooms=${rooms}`)
+          .then(response => response.json())
+          .then(data => {
+            let residenceHTML = '<ul>';
+            data.forEach(residence => {
+              residenceHTML += `<li>${residence.name} - ${residence.location} - Price: ${residence.price} - ${residence.promotional_price} - ${residence.is_available} <img src="${residence.image_url}" alt="${residence.name} image" style="max-width: 100px; height: auto;"></li>`;
+            });
+            residenceHTML += '</ul>';
+            residenceListDiv.innerHTML = residenceHTML;
+          });
+      }
+    </script>
   </body>
 </html>
