@@ -6,8 +6,7 @@ def residence_list(request):
     residences = Residence.objects.all()
     return render(request, 'residence/residence_list.html', {'residences': residences})
 
-def filter_residences_by_rooms(request):
-    rooms = request.GET.get('rooms')
+def filter_residences_by_rooms(request, rooms):
     residences = Residence.objects.filter(number_of_rooms=rooms)
     data = [{
         'name': residence.name,
