@@ -19,10 +19,10 @@
   - Estimate: 2 hours
 - [X] Add the possibility to change the phone number for the admin
 
-** Phase 3: Frontend and Backend Integration [1/5]
+** Phase 3: Frontend and Backend Integration [2/5]
 - [X] Create views to list all residences
   - Estimate: 3 hours
-- [ ] Implement filtering by number of rooms
+- [X] Implement filtering by number of rooms
   - Estimate: 3 hours
 - [ ] Implement filtering by budget
   - Estimate: 3 hours
