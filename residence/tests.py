@@ -6,6 +6,7 @@ class ResidenceModelTest(TestCase):
 
     def test_residence_creation(self):
         residence = Residence.objects.create(
+            name="ideal",
             number_of_rooms=3,
             price=150000.00,
             location="123 Main St",
@@ -15,14 +16,14 @@ class ResidenceModelTest(TestCase):
         self.assertEqual(residence.number_of_rooms, 3)
 
     def test_residence_str_representation(self):
-        residence = Residence.objects.create(location="456 Elm St", price=25000.0, number_of_rooms=2)
-        self.assertEqual(str(residence), "Residence at 456 Elm St - 2 rooms")
+        residence = Residence.objects.create(name="ideal", location="456 Elm St", price=25000.0, number_of_rooms=2)
+        self.assertEqual(str(residence), "Residence ideal at 456 Elm St - 2 rooms")
 
 class ResidenceListViewTest(TestCase):
     def test_residence_list_view(self):
         # Create some residences for testing
-        Residence.objects.create(number_of_rooms=2, price=100000.00, location="Test Location 1", description="Test description 1", image='test_image.jpg')
-        Residence.objects.create(number_of_rooms=3, price=150000.00, location="Test Location 2", description="Test description 2", image='test_image.jpg')
+        Residence.objects.create(name="ideal1", number_of_rooms=2, price=100000.00, location="Test Location 1", description="Test description 1", image='test_image.jpg')
+        Residence.objects.create(name="ideal2", number_of_rooms=3, price=150000.00, location="Test Location 2", description="Test description 2", image='test_image.jpg')
 
         response = self.client.get('/residences/')
 

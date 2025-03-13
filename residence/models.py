@@ -13,7 +13,7 @@ class Residence(models.Model):
     image = models.ImageField(upload_to='residence_images/', blank=True)
 
     def __str__(self):
-        return f"Residence at {self.location} - {self.number_of_rooms} rooms"
+        return f"Residence {self.name} at {self.location} - {self.number_of_rooms} rooms"
 
 class AdminProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
