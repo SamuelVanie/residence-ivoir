@@ -21,8 +21,8 @@ class ResidenceModelTest(TestCase):
 class ResidenceListViewTest(TestCase):
     def test_residence_list_view(self):
         # Create some residences for testing
-        Residence.objects.create(number_of_rooms=2, price=100000.00, location="Test Location 1", description="Test description 1")
-        Residence.objects.create(number_of_rooms=3, price=150000.00, location="Test Location 2", description="Test description 2")
+        Residence.objects.create(number_of_rooms=2, price=100000.00, location="Test Location 1", description="Test description 1", image='test_image.jpg')
+        Residence.objects.create(number_of_rooms=3, price=150000.00, location="Test Location 2", description="Test description 2", image='test_image.jpg')
 
         response = self.client.get('/residences/')
 
