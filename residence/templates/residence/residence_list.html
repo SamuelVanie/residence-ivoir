@@ -29,7 +29,7 @@
         const rooms = document.getElementById('roomFilter').value;
         const residenceListDiv = document.getElementById('residenceList');
 
-        fetch(`/api/residences/filter_by_rooms/?rooms=${rooms}`)
+        fetch(`/residences/filter_by_rooms/?rooms=${rooms}`)
           .then(response => response.json())
           .then(data => {
             let residenceHTML = '<ul>';
