@@ -18,6 +18,24 @@ class ResidenceModelTest(TestCase):
         residence = Residence.objects.create(location="456 Elm St", price=25000.0, number_of_rooms=2)
         self.assertEqual(str(residence), "Residence at 456 Elm St - 2 rooms")
 
+class ResidenceListViewTest(TestCase):
+    def test_residence_list_view(self):
+        # Create some residences for testing
+        Residence.objects.create(number_of_rooms=2, price=100000.00, location="Test Location 1", description="Test description 1")
+        Residence.objects.create(number_of_rooms=3, price=150000.00, location="Test Location 2", description="Test description 2")
+
+        response = self.client.get('/residences/')
+
+        # Check that the response is 200 OK
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the correct template is used
+        self.assertTemplateUsed(response, 'residence/residence_list.html')
+
+        # Check that 'residences' are passed in the context
+        self.assertTrue('residences' in response.context)
+
+
 class AdminProfileModelTest(TestCase):
 
     def test_admin_profile_creation(self):
