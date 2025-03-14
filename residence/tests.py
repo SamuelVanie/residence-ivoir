@@ -60,6 +60,35 @@ class ResidenceListViewTest(TestCase):
         for residence_data in data_3_rooms:
             self.assertEqual(residence_data['number_of_rooms'], 3)
 
+    def test_filter_residences_by_budget_view(self):
+        # Create residences with different prices
+        Residence.objects.create(name="ideal1", number_of_rooms=2, price=80000.00, location="Test Location 1", description="Test description 1")
+        Residence.objects.create(name="ideal2", number_of_rooms=3, price=120000.00, location="Test Location 2", description="Test description 2")
+        Residence.objects.create(name="ideal3", number_of_rooms=2, price=180000.00, location="Test Location 3", description="Test description 3")
+        Residence.objects.create(name="ideal4", number_of_rooms=3, price=220000.00, location="Test Location 4", description="Test description 4")
+
+        # Filter for residences within budget range 100000 - 200000
+        response_budget_100_200 = self.client.get('/residences/filter_by_budget/?min_budget=100000&max_budget=200000')
+        self.assertEqual(response_budget_100_200.status_code, 200)
+        self.assertEqual(response_budget_100_200['content-type'], 'application/json')
+        data_budget_100_200 = response_budget_100_200.json()
+        self.assertEqual(len(data_budget_100_200), 2)
+        for residence_data in data_budget_100_200:
+            self.assertTrue(100000 <= residence_data['price'] <= 200000)
+
+        # Filter for residences within budget range 50000 - 150000
+        response_budget_50_150 = self.client.get('/residences/filter_by_budget/?min_budget=50000&max_budget=150000')
+        self.assertEqual(response_budget_50_150.status_code, 200)
+        self.assertEqual(response_budget_50_150['content-type'], 'application/json')
+        data_budget_50_150 = response_budget_50_150.json()
+        self.assertEqual(len(data_budget_50_150), 2)
+        for residence_data in data_budget_50_150:
+            self.assertTrue(50000 <= residence_data['price'] <= 150000)
+
+        # Filter with no budget range (should return all)
+        response_no_budget = self.client.get('/residences/filter_by_budget/?min_budget=&max_budget=') # or omitting params
+        self.assertTrue(len(response_no_budget.json()) == 4)
+
 
 class AdminProfileModelTest(TestCase):
 
