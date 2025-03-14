@@ -36,6 +36,30 @@ class ResidenceListViewTest(TestCase):
         # Check that 'residences' are passed in the context
         self.assertTrue('residences' in response.context)
 
+    def test_filter_residences_by_rooms_view(self):
+        # Create residences with different numbers of rooms
+        Residence.objects.create(name="ideal1", number_of_rooms=2, price=100000.00, location="Test Location 1", description="Test description 1")
+        Residence.objects.create(name="ideal2", number_of_rooms=3, price=150000.00, location="Test Location 2", description="Test description 2")
+        Residence.objects.create(name="ideal3", number_of_rooms=2, price=120000.00, location="Test Location 3", description="Test description 3")
+
+        # Filter for residences with 2 rooms
+        response_2_rooms = self.client.get('/residences/filter/2/')
+        self.assertEqual(response_2_rooms.status_code, 200)
+        self.assertEqual(response_2_rooms['content-type'], 'application/json')
+        data_2_rooms = response_2_rooms.json()
+        self.assertEqual(len(data_2_rooms), 2)
+        for residence_data in data_2_rooms:
+            self.assertEqual(residence_data['number_of_rooms'], 2)
+
+        # Filter for residences with 3 rooms
+        response_3_rooms = self.client.get('/residences/filter/3/')
+        self.assertEqual(response_3_rooms.status_code, 200)
+        self.assertEqual(response_3_rooms['content-type'], 'application/json')
+        data_3_rooms = response_3_rooms.json()
+        self.assertEqual(len(data_3_rooms), 1)
+        for residence_data in data_3_rooms:
+            self.assertEqual(residence_data['number_of_rooms'], 3)
+
 
 class AdminProfileModelTest(TestCase):
 
