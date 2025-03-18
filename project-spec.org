@@ -16,7 +16,7 @@ This project will be built using Django (the Python web application framework). 
 - Admin should be able to change the contact number
 
 
-*** Navigation Bar
+*** Header
 
 - Company logo (clicking it should lead to the homepage)
 - "Home" link to the homepage
