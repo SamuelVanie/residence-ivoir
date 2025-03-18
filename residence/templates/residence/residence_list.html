@@ -1,95 +1,97 @@
 <!doctype html>
+{% include 'residence/header.html' %}
 <html>
-  <head>
-    <title>Residence List</title>
-  </head>
+    <head>
+        <title>Residence List</title>
+    </head>
 
-  <body>
-    <h1>Residences</h1>
+    <body>
+        <h1>Residences</h1>
 
-    <div>
-      <!-- Filter by Rooms -->
-      <label for="roomFilter">Filter by number of rooms:</label>
-      <input type="number" id="roomFilter" name="rooms">
-      <button onclick="filterResidences()">Filter</button>
-    </div>
+        <div>
+            <!-- Filter by Rooms -->
+            <label for="roomFilter">Filter by number of rooms:</label>
+            <input type="number" id="roomFilter" name="rooms">
+            <button onclick="filterResidences()">Filter</button>
+        </div>
 
-    <div>
-      <!-- Filter by Budget -->
-      <label>Filter by budget range:</label><br>
-      <input type="radio" id="budgetRange50_100" name="budget_range" value="50000-100000">
-      <label for="budgetRange50_100">50,000 - 100,000 FCFA</label><br>
-      <input type="radio" id="budgetRange100_150" name="budget_range" value="100000-150000">
-      <label for="budgetRange100_150">100,000 - 150,000 FCFA</label><br>
-      <input type="radio" id="budgetRange150_200" name="budget_range" value="150000-200000">
-      <label for="budgetRange150_200">150,000 - 200,000 FCFA</label><br>
-      <input type="radio" id="budgetRange200_250" name="budget_range" value="200000-250000">
-      <label for="budgetRange200_250">200,000 - 250,000 FCFA</label><br>
-      <input type="radio" id="budgetRange250_inf" name="budget_range" value="250000-inf">
-      <label for="budgetRange250_inf">250,000 FCFA +</label><br>
+        <div>
+            <!-- Filter by Budget -->
+            <label>Filter by budget range:</label><br>
+            <input type="radio" id="budgetRange50_100" name="budget_range" value="50000-100000">
+            <label for="budgetRange50_100">50,000 - 100,000 FCFA</label><br>
+            <input type="radio" id="budgetRange100_150" name="budget_range" value="100000-150000">
+            <label for="budgetRange100_150">100,000 - 150,000 FCFA</label><br>
+            <input type="radio" id="budgetRange150_200" name="budget_range" value="150000-200000">
+            <label for="budgetRange150_200">150,000 - 200,000 FCFA</label><br>
+            <input type="radio" id="budgetRange200_250" name="budget_range" value="200000-250000">
+            <label for="budgetRange200_250">200,000 - 250,000 FCFA</label><br>
+            <input type="radio" id="budgetRange250_inf" name="budget_range" value="250000-inf">
+            <label for="budgetRange250_inf">250,000 FCFA +</label><br>
 
-      <label for="minBudget">Minimum Budget:</label>
-      <input type="number" id="minBudget" name="min_budget">
-      <label for="maxBudget">Maximum Budget:</label>
-      <input type="number" id="maxBudget" name="max_budget">
-      <button onclick="filterResidencesByBudget()">Filter Budget</button>
-    </div>
+            <label for="minBudget">Minimum Budget:</label>
+            <input type="number" id="minBudget" name="min_budget">
+            <label for="maxBudget">Maximum Budget:</label>
+            <input type="number" id="maxBudget" name="max_budget">
+            <button onclick="filterResidencesByBudget()">Filter Budget</button>
+        </div>
 
-    <div id="residenceList">
-      <ul>
-        {% for residence in residences %}
-        <li>
-          {{ residence.name }} - {{ residence.location }} - Price: {{ residence.price }} - {{ residence.promotional_price }} - {{ residence.is_available }}
-          <img src="{{ residence.image.url }}" alt="{{ residence.name }} image" style="max-width: 100px; height: auto;">
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
+        <div id="residenceList">
+            <ul>
+                {% for residence in residences %}
+                <li>
+                    {{ residence.name }} - {{ residence.location }} - Price: {{ residence.price }} - {{ residence.promotional_price }} - {{ residence.is_available }}
+                    <img src="{{ residence.image.url }}" alt="{{ residence.name} image" style="max-width: 100px; height: auto;">
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
 
-    <script>
-      function filterResidences() {
-        const rooms = document.getElementById('roomFilter').value;
-        const residenceListDiv = document.getElementById('residenceList');
+        <script>
+        function filterResidences() {
+            const rooms = document.getElementById('roomFilter').value;
+            const residenceListDiv = document.getElementById('residenceList');
 
-        fetch(`/residences/filter_by_rooms/rooms${rooms}/`)
-          .then(response => response.json())
-          .then(data => {
-            let residenceHTML = '<ul>';
-            data.forEach(residence => {
-              residenceHTML += `<li>${residence.name} - ${residence.location} - Price: ${residence.price} - ${residence.promotional_price} - ${residence.is_available} <img src="${residence.image_url}" alt="${residence.name} image" style="max-width: 100px; height: auto;"></li>`;
-            });
-            residenceHTML += '</ul>';
-            residenceListDiv.innerHTML = residenceHTML;
-          });
-      }
-
-      function filterResidencesByBudget() {
-        let minBudget = document.getElementById('minBudget').value;
-        let maxBudget = document.getElementById('maxBudget').value;
-        let budgetRange = document.querySelector('input[name="budget_range"]:checked');
-
-        if (budgetRange) {
-          const rangeValues = budgetRange.value.split('-');
-          minBudget = rangeValues[0];
-          maxBudget = rangeValues[1] === 'inf' ? 1000000000 : rangeValues[1]; // Representing infinity with a large number
+            fetch(`/residences/filter_by_rooms/rooms${rooms}/`)
+                .then(response => response.json())
+                .then(data => {
+                    let residenceHTML = '<ul>';
+                    data.forEach(residence => {
+                        residenceHTML += `<li>${residence.name} - ${residence.location} - Price: ${residence.price} - ${residence.promotional_price} - ${residence.is_available} <img src="${residence.image_url}" alt="${residence.name} image" style="max-width: 100px; height: auto;"></li>`;
+                    });
+                    residenceHTML += '</ul>';
+                    residenceListDiv.innerHTML = residenceHTML;
+                });
         }
 
-        const residenceListDiv = document.getElementById('residenceList');
+        function filterResidencesByBudget() {
+            let minBudget = document.getElementById('minBudget').value;
+            let maxBudget = document.getElementById('maxBudget').value;
+            let budgetRange = document.querySelector('input[name="budget_range"]:checked');
 
-        fetch(`/residences/filter_by_budget/?min_budget=${minBudget}&max_budget=${maxBudget}`)
-          .then(response => response.json())
-          .then(data => {
-            let residenceHTML = '<ul>';
-            data.forEach(residence => {
-              residenceHTML += `<li>${residence.name} - ${residence.location} - Price: ${residence.price} - ${residence.promotional_price} - ${residence.is_available} <img src="${residence.image_url}" alt="${residence.name} image" style="max-width: 100px; height: auto;"></li>`;
-            });
-            residenceHTML += '</ul>';
-            residenceListDiv.innerHTML = residenceHTML;
-          });
-      }
+            if (budgetRange) {
+                const rangeValues = budgetRange.value.split('-');
+                minBudget = rangeValues[0];
+                maxBudget = rangeValues[1] === 'inf' ? 1000000000 : rangeValues[1]; // Representing infinity with a large number
+            }
 
-      function clearBudgetFilter() {
-      }
-    </script>
-  </body>
+            const residenceListDiv = document.getElementById('residenceList');
+
+            fetch(`/residences/filter_by_budget/?min_budget=${minBudget}&max_budget=${maxBudget}`)
+                .then(response => response.json())
+                .then(data => {
+                    let residenceHTML = '<ul>';
+                    data.forEach(residence => {
+                        residenceHTML += `<li>${residence.name} - ${residence.location} - Price: ${residence.price} - ${residence.promotional_price} - ${residence.is_available} <img src="${residence.image_url}" alt="${residence.name} image" style="max-width: 100px; height: auto;"></li>`;
+                    });
+                    residenceHTML += '</ul>';
+                    residenceListDiv.innerHTML = residenceHTML;
+                });
+        }
+
+        function clearBudgetFilter() {
+        }
+        </script>
+    </body>
 </html>
+{% include 'residence/footer.html' %}
