@@ -19,6 +19,7 @@
             python312Packages.flake8
             python312Packages.python-lsp-server
             nodejs_23
+            nodePackages.prettier
           ];
 
           shellHook = ''
