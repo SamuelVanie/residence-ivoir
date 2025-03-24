@@ -3,14 +3,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 20px;
+  padding: 10px 10px;
   background-color: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(200, 200, 200, 0.5);
 }
 
 .navbar-brand {
   display: flex;
   align-items: center;
+  text-decoration: none;
 }
 
 .navbar-brand img {
@@ -20,9 +21,9 @@
 /* Logo text styling */
 .navbar-brand::after {
   content: "residenceivoire";
-  font-family: "Brush Script MT", cursive;
+  font-family: "Playball";
   font-size: 24px;
-  color: #b8860b; /* Golden brown color similar to the logo */
+  color: #b8860b;
   margin-left: 5px;
 }
 
@@ -58,9 +59,12 @@
 
 .nav-link {
   color: #333;
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
+  font-family: Lexend Exa;
   padding: 5px 0;
   transition: color 0.3s ease;
 }
@@ -72,10 +76,8 @@
 
 /* Dropdown arrow for nav items with children */
 .nav-link::after {
-  content: "▼";
-  display: inline-block;
+  content: "⌄";
   font-size: 10px;
-  margin-left: 5px;
   transition: transform 0.3s ease;
 }
 
@@ -100,42 +102,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background-color: #f5f5f5;
-}
-
-/* Since your search icon src is empty, use a fallback */
-.shortcut-icon a img {
-  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
-  width: 18px;
-  height: 18px;
 }
 
 /* Responsive styles */
 @media (max-width: 768px) {
-  .navbar-toggler {
-    display: block;
-  }
-
-  .navbar-collapse {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: white;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    display: none;
-    padding: 15px;
-  }
-
-  .navbar-collapse.show {
-    display: block;
-  }
-
-  .navbar-nav {
-    flex-direction: column;
-    gap: 15px;
-  }
 }
