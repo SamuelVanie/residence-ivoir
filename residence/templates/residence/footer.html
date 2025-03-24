@@ -1,16 +1,18 @@
 {% load static %}
-<div>
-    <a href="/">
-        <img src="{% static 'images/logo.png' %}" alt="Company Logo">
+<link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+<div class="footer">
+  <a href="/" class="footer-brand">
+    <img src="{% static 'images/logo.png' %}" alt="Company Logo" />
+  </a>
+  <div>
+    <a href="#">
+      <img src="{% static 'images/social_fb.png' %}" alt="Facebook" />
     </a>
-    <div>
-        <a href="#">
-            <img src="{% static 'images/social_fb.png' %}" alt="Facebook">
-        </a>
-        <a href="#">
-            <img src="{% static 'images/social_twitter.png' %}" alt="Twitter">
-        </a>
-    </div>
-    <p>Phone: +XXX XXX XXX XXX</p>
-    <a href="/">Home</a> | <a href="/residences/">Reservation</a> | <a href="/#about-us">About Us</a>
+    <a href="#">
+      <img src="{% static 'images/social_twitter.png' %}" alt="Twitter" />
+    </a>
+  </div>
+  <p>Phone: +XXX XXX XXX XXX</p>
+  <a href="/">Home</a> | <a href="/residences/">Reservation</a> |
+  <a href="/#about-us">About Us</a>
 </div>
