@@ -1,0 +1,141 @@
+/* Navigation Bar Styles */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand img {
+  height: 40px; /* Slightly larger than your setting */
+}
+
+/* Logo text styling */
+.navbar-brand::after {
+  content: "residenceivoire";
+  font-family: "Brush Script MT", cursive;
+  font-size: 24px;
+  color: #b8860b; /* Golden brown color similar to the logo */
+  margin-left: 5px;
+}
+
+/* Collapse and toggler styles */
+.collapse {
+  display: flex;
+}
+
+.navbar-collapse {
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.navbar-toggler {
+  display: none; /* Hide on desktop */
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Nav menu styling */
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 30px; /* Space between menu items */
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 5px 0;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #b8860b; /* Golden brown for hover/active state */
+}
+
+/* Dropdown arrow for nav items with children */
+.nav-link::after {
+  content: "▼";
+  display: inline-block;
+  font-size: 10px;
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+
+/* Hide dropdown arrows for items without children */
+.nav-link:not([href="/"]):not([href="{% url 'residence_list' %}"]):not(
+    [href="/#about-us"]
+  ):not([href=""]) {
+  content: none;
+}
+
+/* Search icon styling */
+.shortcuts-icons {
+  display: flex;
+  align-items: center;
+}
+
+.shortcut-icon {
+  list-style: none;
+}
+
+.shortcut-icon a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+}
+
+/* Since your search icon src is empty, use a fallback */
+.shortcut-icon a img {
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+  width: 18px;
+  height: 18px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .navbar-toggler {
+    display: block;
+  }
+
+  .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    padding: 15px;
+  }
+
+  .navbar-collapse.show {
+    display: block;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
