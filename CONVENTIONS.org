@@ -13,6 +13,8 @@
 - Simulate user interactions and behaviors by performing dry runs, trace calls, or other appropriate methods to rigorously analyze the impact of proposed changes on both expected and edge-case scenarios. Generate feedback on all potential side effects.
 - Limit the scope of code changes to only the directly modified function and it's immediate dependencies. Avoid making unrelated modifications in files other than these.
 - Do not propose a change unless the simulation passes and verifies that all existing functionality is preserved, and if a simulation breaks, provide fixes immediately before proceeding.
+- Do not break existing styling (css) or page organization (html) while working on those kind of features unleass it is necessary to create the look and feel that the programmer will ask.
+  
 
 ** Simulation Validation
 
