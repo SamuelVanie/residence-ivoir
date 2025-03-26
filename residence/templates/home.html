@@ -1,0 +1,91 @@
+{% load static %} {% include 'residence/header.html' %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+<div class="homepage">
+  <h2 class="homepage__message">Imaginez votre prochain cocon</h2>
+  <img alt="" src="" class="room-illustration" />
+  <h2 class="homepage__message">
+    Chez vous, tout confort, sans effort : Locatoins meublées rapides et
+    abordables
+  </h2>
+  <img class="room-illustration" alt="" src="" />
+  <div class="call-to-action-section">
+    <h2 class="homepage__message">Confort Absolue, Zéro Tracas</h2>
+    <p class="description-text">
+      Découvrez une vaste sélection de logements entièrement meublés, prêts à
+      vous accueillir
+    </p>
+    <button class="call-to-action-btn">Réservez</button>
+  </div>
+  <img class="room-illustration" alt="" src="" />
+  <div class="nos-services">
+    <p class="nos-services__title">Nos services</p>
+    <div class="nos-services__service">
+      <img class="nos-services__service__img" alt="" src="" />
+      <p class="nos-services__service__title">Visite guidées</p>
+      <p class="nos-services__service__description">
+        Des visites guidées personnalisées
+      </p>
+      <button class="nos-services__service__button">Plus...</button>
+    </div>
+    <div class="nos-services__service">
+      <img class="nos-services__service__img" alt="" src="" />
+      <p class="nos-services__service__title">Location à la carte</p>
+      <p class="nos-services__service__description">
+        Choisissez la durée et les conditions qui vous conviennent
+      </p>
+      <button class="nos-services__service__button">Plus...</button>
+    </div>
+    <div class="nos-services__service">
+      <img class="nos-services__service__img" alt="" src="" />
+      <p class="nos-services__service__title">À vos côtés</p>
+      <p class="nos-services__service__description">
+        Disponible 24/7 pour toutes vos préoccupations
+      </p>
+      <button class="nos-services__service__button">Plus...</button>
+    </div>
+  </div>
+  <div class="illustrations">
+    <img class="illustrations__img" alt="" src="" />
+    <img class="illustrations__img" alt="" src="" />
+    <img class="illustrations__img" alt="" src="" />
+    <img class="illustrations__img" alt="" src="" />
+    <img class="illustrations__img" alt="" src="" />
+    <img class="illustrations__img" alt="" src="" />
+    <img class="illustrations__img" alt="" src="" />
+    <img class="illustrations__img" alt="" src="" />
+    <img class="illustrations__img" alt="" src="" />
+  </div>
+
+  <div class="contact">
+    <p class="contact__title">Contactez-nous</p>
+    <p class="contact__description">
+      Contactez-nous pour plus d'informations ou pour arranger un rendez-vous
+    </p>
+    <form class="contact__form">
+      <div class="contact__form__identity">
+        <input
+          class="contact__form__identity__field"
+          name="sirname"
+          type="text"
+          value="Nom"
+        />
+        <input
+          class="contact__form__identity__field"
+          name="name"
+          type="text"
+          value="Prénom"
+        />
+      </div>
+      <div class="contact__form__msg">
+        <input
+          class="contact__form__msg__field"
+          name="msg"
+          type="text"
+          value="Votre message"
+        />
+      </div>
+      <button type="submit" class="contact__form__button">Soumettre</button>
+    </form>
+  </div>
+</div>
+{% include 'residence/footer.html' %}
