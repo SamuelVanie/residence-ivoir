@@ -34,7 +34,7 @@ class ResidenceListViewTest(TestCase):
         self.assertTemplateUsed(response, 'residence/residence_list.html')
 
         # Check that 'residences' are passed in the context
-        self.assertTrue('residences' in response.context)
+        self.assertTrue('page_obj' in response.context)
 
     def test_filter_residences_by_rooms_view(self):
         # Create residences with different numbers of rooms

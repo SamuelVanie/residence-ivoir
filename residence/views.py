@@ -1,13 +1,19 @@
 from django.shortcuts import render
 from .models import Residence
 from django.http import JsonResponse
+from django.core.paginator import Paginator
 
 def home(request):
     return render(request, 'home.html')
 
 def residence_list(request):
-    residences = Residence.objects.all()
-    return render(request, 'residence/residence_list.html', {'residences': residences})
+    residence_list = Residence.objects.all()
+    paginator = Paginator(residence_list, 6) # Show 6 residences per page.
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    # Pass the page object instead of the full list
+    return render(request, 'residence/residence_list.html', {'page_obj': page_obj})
 
 def filter_residences_by_rooms(request, rooms):
     residences = Residence.objects.filter(number_of_rooms=rooms)
