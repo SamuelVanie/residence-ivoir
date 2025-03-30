@@ -1,91 +1,128 @@
 {% load static %} {% include 'residence/header.html' %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}" />
-<div class="homepage">
-  <h2 class="homepage__message">Imaginez votre prochain cocon</h2>
-  <img alt="an image of an appartement" src="" class="room-illustration" />
-  <h2 class="homepage__message">
-    Chez vous, tout confort, sans effort : Locatoins meublées rapides et
-    abordables
-  </h2>
-  <img class="room-illustration" alt="an image of an appartement" src="" />
-  <div class="call-to-action-section">
-    <h2 class="homepage__message">Confort Absolue, Zéro Tracas</h2>
-    <p class="description-text">
-      Découvrez une vaste sélection de logements entièrement meublés, prêts à
-      vous accueillir
-    </p>
-    <button class="call-to-action-btn">Réservez</button>
-  </div>
-  <img class="room-illustration" alt="an image of an appartement" src="" />
-  <div class="nos-services">
-    <p class="nos-services__title">Nos services</p>
-    <div class="nos-services__service">
-      <img class="nos-services__service__img" alt="" src="" />
-      <p class="nos-services__service__title">Visite guidées</p>
-      <p class="nos-services__service__description">
-        Des visites guidées personnalisées
-      </p>
-      <button class="nos-services__service__button">Plus...</button>
-    </div>
-    <div class="nos-services__service">
-      <img class="nos-services__service__img" alt="" src="" />
-      <p class="nos-services__service__title">Location à la carte</p>
-      <p class="nos-services__service__description">
-        Choisissez la durée et les conditions qui vous conviennent
-      </p>
-      <button class="nos-services__service__button">Plus...</button>
-    </div>
-    <div class="nos-services__service">
-      <img class="nos-services__service__img" alt="" src="" />
-      <p class="nos-services__service__title">À vos côtés</p>
-      <p class="nos-services__service__description">
-        Disponible 24/7 pour toutes vos préoccupations
-      </p>
-      <button class="nos-services__service__button">Plus...</button>
-    </div>
-  </div>
-  <div class="illustrations">
-    <img class="illustrations__img" alt="" src="" />
-    <img class="illustrations__img" alt="" src="" />
-    <img class="illustrations__img" alt="" src="" />
-    <img class="illustrations__img" alt="" src="" />
-    <img class="illustrations__img" alt="" src="" />
-    <img class="illustrations__img" alt="" src="" />
-    <img class="illustrations__img" alt="" src="" />
-    <img class="illustrations__img" alt="" src="" />
-    <img class="illustrations__img" alt="" src="" />
-  </div>
 
-  <div class="contact">
-    <p class="contact__title">Contactez-nous</p>
-    <p class="contact__description">
-      Contactez-nous pour plus d'informations ou pour arranger un rendez-vous
-    </p>
-    <form class="contact__form">
-      <div class="contact__form__identity">
-        <input
-          class="contact__form__identity__field"
-          name="sirname"
-          type="text"
-          value="Nom"
-        />
-        <input
-          class="contact__form__identity__field"
-          name="name"
-          type="text"
-          value="Prénom"
-        />
-      </div>
-      <div class="contact__form__msg">
-        <input
-          class="contact__form__msg__field"
-          name="msg"
-          type="text"
-          value="Votre message"
-        />
-      </div>
-      <button type="submit" class="contact__form__button">Soumettre</button>
-    </form>
+<header class="header-title">
+  <h1>Imaginez votre prochain cocon</h1>
+</header>
+
+<section class="hero-image-section">
+  <img src="{% static 'images/imagine_cocon.png' %}" alt="Salon moderne et confortable" />
+</section>
+
+<section class="benefit-statement">
+  <div class="container">
+    <h2>
+      Chez vous, tout confort, sans effort : Locations meublées rapides et
+      abordables.
+    </h2>
   </div>
-</div>
+</section>
+
+<section class="welcome-hero">
+  <div class="welcome-text-overlay">
+    <h2>Bienvenue chez Residence Ivoir</h2>
+    <p>Ouvert 24/7</p>
+    <p><a href="#" class="whatsapp-link">Contactez nous sur whatsapp</a></p>
+    <!-- Add actual WhatsApp link -->
+  </div>
+</section>
+
+<main>
+  <section class="feature-focus">
+    <div class="container feature-content">
+      <h2>Confort Absolu, Zéro Tracas</h2>
+      <p>
+        Découvrez une vaste sélection de logements entièrement meublés, prêts à
+        vous accueillir.
+      </p>
+      <a href="#" class="btn btn-primary">Réservez</a>
+    </div>
+    <div class="feature-image">
+      <img
+        src="{% static 'images/confort_absolu.jpg' %}"
+        alt="Intérieur d'appartement lumineux et décoré"
+      />
+    </div>
+  </section>
+
+  <section class="services-section">
+    <div class="container">
+      <h2 class="section-title-left">Nos services</h2>
+      <div class="services-grid">
+        <div class="service-item">
+          <img
+            src="{% static 'images/guided_tour.jpeg' %}"
+            alt="Un agent immobilier faisant le tour guidé d'une résidence"
+          />
+          <h3>Visites guidées</h3>
+          <p>Des visites guidées personnalisées</p>
+          <a href="#" class="btn btn-primary more-info">Plus...</a>
+        </div>
+        <div class="service-item">
+          <img
+            src="{% static 'images/loaning_with_budget.jpg' %}"
+            alt="Des pièces posées sur une table"
+          />
+          <h3>Location à la Carte</h3>
+          <p>Choisissez la durée et les conditions qui vous conviennent.</p>
+          <a href="#" class="btn btn-primary more-info">Plus...</a>
+        </div>
+        <div class="service-item">
+          <img
+            src="{% static 'images/at_your_side.jpeg' %}"
+            alt="Agente de support client souriante avec casque"
+          />
+          <h3>À vos côtés</h3>
+          <p>Disponible 24/7 pour toutes vos préoccupations</p>
+          <a href="#" class="btn btn-primary more-info">Plus...</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery-section">
+    <div class="container">
+      <div class="gallery-grid">
+        <img src="{% static 'images/resi_show_1.jpeg' %}" alt="Intérieur de résidence 1" />
+        <img src="{% static 'images/resi_show_2.jpeg' %}" alt="Intérieur de résidence 2" />
+        <img src="{% static 'images/resi_show_3.jpeg' %}" alt="Intérieur de résidence 3" />
+        <img src="{% static 'images/resi_show_4.jpeg' %}" alt="Intérieur de résidence 4" />
+        <img src="{% static 'images/resi_show_5.jpeg' %}" alt="Intérieur de résidence 5" />
+        <img src="{% static 'images/resi_show_6.jpeg' %}" alt="Intérieur de résidence 6" />
+        <img src="{% static 'images/resi_show_7.jpeg' %}" alt="Intérieur de résidence 7" />
+        <img src="{% static 'images/resi_show_8.jpeg' %}" alt="Intérieur de résidence 8" />
+        <img src="{% static 'images/resi_show_9.jpeg' %}" alt="Intérieur de résidence 9" />
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="container">
+      <h2>Contactez-nous</h2>
+      <p>
+        Contactez-nous pour plus d'information ou pour arranger un rendez-vous
+      </p>
+      <form action="#" method="post" class="contact-form">
+        <div class="form-group">
+          <label for="name" class="sr-only">Nom</label>
+          <input type="text" id="name" name="name" placeholder="Nom" />
+        </div>
+        <div class="form-group">
+          <label for="prenom" class="sr-only">Prénom</label>
+          <input type="text" id="prenom" name="prenom" placeholder="Prénom" />
+        </div>
+        <div class="form-group">
+          <label for="question" class="sr-only">Votre question...</label>
+          <textarea
+            id="question"
+            name="question"
+            rows="4"
+            placeholder="Votre question..."
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Soumettre</button>
+      </form>
+    </div>
+  </section>
+</main>
 {% include 'residence/footer.html' %}
