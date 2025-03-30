@@ -1,6 +1,7 @@
 /* --- Global Styles & Resets --- */
 :root {
   --primary-font: "Lexend Exa", sans-serif;
+  --secondary-font: "Newsreader", serif;
   --text-dark: #212121;
   --text-light: #ffffff;
   --accent-color: #b8860b; /* Mustard Yellow/Gold */
@@ -16,7 +17,6 @@
 }
 
 body {
-  font-family: var(--primary-font);
   color: var(--text-dark);
   background-color: var(--background-light);
   line-height: 1.6;
@@ -35,11 +35,12 @@ h3 {
   line-height: 1.3;
   margin-bottom: 1rem; /* Default bottom margin for headings */
   font-weight: 600; /* Slightly bolder default */
+  font-family: var(--primary-font);
 }
 
 h1 {
   font-size: clamp(2.5rem, 6vw, 4rem); /* Responsive font size */
-  font-weight: 400; /* As per image */
+  font-weight: 300;
 }
 
 h2 {
@@ -51,6 +52,7 @@ h3 {
 }
 
 p {
+  font-family: var(--secondary-font);
   margin-bottom: 1rem;
 }
 
@@ -139,7 +141,8 @@ a:hover {
 }
 
 .benefit-statement h2 {
-  max-width: 800px; /* Control line length */
+  max-width: 800px;
+  font-weight: 300;
   margin-left: auto;
   margin-right: auto;
 }
@@ -177,12 +180,14 @@ a:hover {
 }
 
 .welcome-text-overlay h2 {
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  font-weight: 200;
   margin-bottom: 0.5rem;
 }
 
 .welcome-text-overlay p {
-  font-size: 1.1rem;
+  font-size: 0.8rem;
+  font-weight: 300;
   margin-bottom: 0.5rem;
 }
 
@@ -206,14 +211,16 @@ a:hover {
 }
 
 .feature-content h2 {
+  font-weight: 300;
   margin-bottom: 1rem;
 }
 
 .feature-content p {
-  max-width: 700px;
+  max-width: 500px;
   margin-left: auto;
+  font-weight: 300;
   margin-right: auto;
-  margin-bottom: 2rem; /* Space before button */
+  margin-bottom: 2rem;
   font-size: 1.1rem;
 }
 
@@ -230,6 +237,7 @@ a:hover {
 .section-title-left {
   text-align: left; /* Specific override for this heading */
   margin-bottom: 2.5rem; /* More space after title */
+  font-weight: 300;
 }
 
 .services-grid {
@@ -255,11 +263,13 @@ a:hover {
 
 .service-item h3 {
   margin-bottom: 0.5rem;
+  font-weight: 400;
 }
 
 .service-item p {
   font-size: 0.95rem;
   margin-bottom: 1.5rem; /* Space before button */
+  font-weight: 300;
 }
 
 .service-item .more-info {
@@ -295,6 +305,7 @@ a:hover {
 
 .contact-section h2 {
   margin-bottom: 1rem;
+  font-weight: 300;
 }
 
 .contact-section p {
@@ -320,8 +331,9 @@ a:hover {
   padding: 12px 15px;
   border: 1px solid var(--border-color);
   border-radius: 4px;
-  font-family: var(--primary-font);
+  font-family: var(--secondary-font);
   font-size: 1rem;
+  font-weight: 300;
   background-color: var(--background-light);
 }
 .contact-form input[type="text"]::placeholder,
