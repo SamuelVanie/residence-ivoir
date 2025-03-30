@@ -1,3 +1,140 @@
-.footer-brand img {
-  height: 40px;
+/* --- Footer Styles --- */
+.site-footer {
+  background-color: var(--background-light);
+  padding: 40px 0;
+  border-top: 1px solid #e0e0e0; /* Light gray separator line */
+  font-size: 0.95rem; /* Base font size for footer */
+  color: #555; /* Default text color for footer */
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to the top */
+  flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+  gap: 30px; /* Spacing between columns */
+}
+
+.footer-col {
+  flex: 1; /* Allow columns to grow */
+  min-width: 200px; /* Minimum width before wrapping */
+  font-family: var(--primary-font);
+}
+
+/* Footer About/Logo Column */
+.footer-about {
+  flex-basis: 30%; /* Give the first column a bit more space initially */
+  min-width: 250px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 0.7rem;
+}
+
+.footer-logo .logo-icon {
+  height: 35px; /* Adjust icon size */
+  width: auto;
+  margin-right: 10px;
+}
+
+.footer-logo .brand-name {
+  color: var(--accent-color);
+  font-size: 1.6rem; /* Adjust font size */
+  font-family: "Playball", "cursive";
+  font-weight: normal; /* Cursive fonts often don't need bold */
+  line-height: 1; /* Adjust line height for script font */
+}
+
+.footer-social {
+  margin-bottom: 0.7rem;
+  padding-left: 0.4rem;
+}
+
+.footer-social a {
+  display: inline-block;
+  margin-right: 12px; /* Spacing between icons */
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.footer-social a:hover {
+  opacity: 1;
+}
+
+.footer-social img {
+  height: 24px; /* Size of social icons */
+  width: 24px;
+  vertical-align: middle;
+}
+
+.footer-contact p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-dark); /* Slightly darker for emphasis */
+  font-family: "Playball";
+}
+
+/* Footer Links Columns */
+.footer-links {
+  flex-basis: 20%;
+}
+
+.footer-links h3 {
+  font-size: 1.1rem;
+  font-weight: 400; /* Bold */
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.6rem; /* Spacing between links */
+}
+
+.footer-links a {
+  color: #555; /* Dark gray for links */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--accent-color); /* Highlight on hover */
+  text-decoration: underline;
+}
+
+/* --- Footer Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column; /* Stack columns */
+    align-items: flex-start; /* Align stacked columns to the left */
+    gap: 40px; /* Increase gap for stacked layout */
+  }
+
+  .footer-col {
+    flex-basis: auto; /* Reset basis */
+    width: 100%; /* Take full width when stacked */
+    min-width: unset;
+  }
+
+  .footer-about,
+  .footer-links {
+    /* Optional: Center text in columns on mobile */
+    /* text-align: center; */
+  }
+
+  .footer-logo,
+  .footer-social,
+  .footer-contact {
+    /* Optional: Center logo/social/contact within their column */
+    /* justify-content: center; */
+    /* text-align: center; */
+  }
 }
