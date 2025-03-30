@@ -242,6 +242,7 @@ a:hover {
   text-align: left;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
 }
 
 .service-item img {
@@ -263,6 +264,7 @@ a:hover {
 
 .service-item .more-info {
   width: 40%;
+  margin-top: auto;
 }
 
 /* --- Gallery Section --- */
