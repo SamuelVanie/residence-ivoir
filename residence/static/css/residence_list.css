@@ -4,10 +4,16 @@
   --primary-font: 'Lexend Exa';
   --secondary-font: 'Newsreader';
   --primary-color: #b8860b;
+  --accent-color: #b8860b;
   --light-gray: #f5f5f5;
   --medium-gray: #e0e0e0;
-  --border-radius: 8px;
+  --border-radius: 20px;
   --box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+body {
+  font-family: var(--primary-font);
 }
 
 .page-wrapper {
@@ -30,15 +36,19 @@
 }
 
 #roomFilterDropdown {
-  font-family: var(--primary-font);
-  font-weight: 400;
   padding: 10px 15px;
   border: 1px solid #ddd;
   border-radius: var(--border-radius);
   background-color: white;
   font-size: 14px;
+  font-family: var(--primary-font);
   width: 200px;
   cursor: pointer;
+}
+
+#roomFilterDropdown:first-child {
+  border-radius: var(--border-radius);
+  font-weight: 200;
 }
 
 /* Residence card styling */
@@ -50,7 +60,7 @@
 
 .residence-card {
   display: flex;
-  background-color: white;
+  background-color: #f0f0f0;
   border-radius: var(--border-radius);
   overflow: hidden;
   box-shadow: var(--box-shadow);
@@ -85,7 +95,6 @@
   margin: 0;
   font-size: 18px;
   font-weight: 600;
-  color: #333;
 }
 
 .residence-price {
@@ -95,14 +104,15 @@
 }
 
 .residence-subtitle {
-  color: #666;
   margin: 0 0 10px 0;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 300;
 }
 
 .residence-description {
-  font-size: 14px;
+  font-size: 12px;
   color: #555;
+  font-weight: 300;
   margin: 8px 0;
   line-height: 1.4;
 }
@@ -125,6 +135,7 @@
 }
 
 .available {
+  font-size: clamp(2px, .9vw, 1.0vw);
   color: #2e7d32;
   font-weight: 500;
 }
@@ -181,6 +192,11 @@
   align-self: flex-start;
 }
 
+.filter-sidebar button {
+  font-family: var(--primary-font);
+  font-weight: 400;
+}
+
 .filter-title {
   margin-top: 0;
   font-size: 18px;
@@ -191,6 +207,7 @@
 
 .filter-group {
   margin-bottom: 20px;
+  font-weight: 300;
 }
 
 .budget-option {

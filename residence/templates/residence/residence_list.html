@@ -34,8 +34,7 @@
               <p class="residence-price">{{ residence.price_per_night|default:residence.price }} FCFA/nuit</p>
             </div>
             <p class="residence-subtitle">
-              {% if residence.beds %}{{ residence.beds }} lit(s){% endif %}
-              {% if residence.baths %}, {{ residence.baths }} salle(s) de bain{% endif %}
+              {% if residence.number_of_rooms %}{{ residence.number_of_rooms }} chambre(s){% endif %}
               {% if residence.location and not residence.short_description%}, {{ residence.location }}{% endif %}
             </p>
 
@@ -49,7 +48,7 @@
 
             {% if residence.promotional_price_per_night %}
             <p class="residence-promo-price">
-              Promo: {{ residence.promotional_price_per_night }} FCFA/nuit
+              Promo: {{ residence.promotional_price }} FCFA/nuit
             </p>
             {% endif %}
             {% if residence.is_available is not None %}
@@ -109,7 +108,6 @@
     </main>
 
     <aside class="filter-sidebar">
-      {# Sidebar content remains the same #}
       <h2 class="filter-title">Budget</h2>
       <div class="filter-group">
         <div class="budget-option">
@@ -133,8 +131,8 @@
           <label for="budgetRange250_inf">250 000+ FCFA</label>
         </div>
         <div class="budget-option custom-range">
-          <span class="custom-label">Ou spécifique:</span>
           <div class="custom-inputs">
+            <span class="custom-label">Choisir:</span>
             <input type="number" id="minBudget" name="min_budget" placeholder="Min" step="1000">
             <span>à</span>
             <input type="number" id="maxBudget" name="max_budget" placeholder="Max" step="1000">
@@ -345,4 +343,3 @@
   </script>
 </body>
 {% include 'residence/footer.html' %}
-
