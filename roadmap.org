@@ -1,6 +1,6 @@
-* Project Roadmap for Loaning Residence Application
+* ACTIVE Project Roadmap for Loaning Residence Application
 
-** Phase 1: Planning and Setup [4/4]
+** DONE Phase 1: Planning and Setup [4/4]
 - [X] Define project requirements and scope
   - Estimate: 2 hours
 - [X] Set up the Django project structure
@@ -10,7 +10,7 @@
 - [X] Configure database settings (SQLite for MVP)
   - Estimate: 1 hour
 
-** Phase 2: Model Design and Database Setup [4/4]
+** DONE Phase 2: Model Design and Database Setup [4/4]
 - [X] Create a `Residence` model with fields for characteristics (e.g., number of rooms, price, location, description, etc.)
   - Estimate: 3 hours
 - [X] Create a migration file and apply it to the database
@@ -19,7 +19,7 @@
   - Estimate: 2 hours
 - [X] Add the possibility to change the phone number for the admin
 
-** Phase 3: Frontend and Backend Integration [5/5]
+** DONE Phase 3: Frontend and Backend Integration [5/5]
 - [X] Create views to list all residences
   - Estimate: 3 hours
 - [X] Implement filtering by number of rooms
@@ -31,7 +31,7 @@
 - [X] Create the homepage
 
 
-** Phase 4: Reservation Functionality [0/2]
+** TODO Phase 4: Reservation Functionality [0/2]
 - [ ] Add a reservation button for each residence
    - Estimate: 2 hours
 - [ ] Integrate redirection to WhatsApp or SMS with a predefined template
@@ -44,7 +44,7 @@
 - [ ] Add validation rules for residence data entry
    - Estimate: 2 hours
 
-** Phase 6: Testing and Debugging [0/3]
+** TODO Phase 6: Testing and Debugging [0/3]
 - [ ] Perform unit testing for models, views, and filters
    - Estimate: 4 hours
 - [ ] Conduct end-to-end testing for user flows (listing, filtering, reservation)
@@ -60,7 +60,7 @@
 - [ ] Prepare the application for deployment (e.g., collect static files, set up environment variables)
    - Estimate: 2 hours
 
-** Phase 8: Deployment [0/2]
+** TODO Phase 8: Deployment [0/2]
 - [ ] Deploy the application to a hosting platform (e.g., Heroku, AWS, etc.)
    - Estimate: 3 hours
 - [ ] Monitor the application post-deployment for any issues

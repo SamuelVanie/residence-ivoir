@@ -1,202 +1,197 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/residence_list.css' %}" />
 
-<html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nos Résidences</title>
-    {% include 'residence/header.html' %}
-  </head>
-  <body>
-    <div class="page-wrapper">
+{% include 'residence/header.html' %}
+<title>Nos Résidences</title>
+<body>
+  <div class="page-wrapper">
+    
+    <main class="main-content">
+      <div class="filter-dropdown-container">
+        <select id="roomFilterDropdown" name="rooms">
+          <option value="">Nombre de chambre</option>
+          <option value="1">1 chambre</option>
+          <option value="2">2 chambres</option>
+          <option value="3">3 chambres</option>
+          <option value="4">4 chambres</option>
+          <option value="5">5+ chambres</option>
+        </select>
+      </div>
 
-      <main class="main-content">
-        <div class="filter-dropdown-container">
-           <select id="roomFilterDropdown" name="rooms">
-             <option value="">Nombre de chambre</option>
-             <option value="1">1 chambre</option>
-             <option value="2">2 chambres</option>
-             <option value="3">3 chambres</option>
-             <option value="4">4 chambres</option>
-             <option value="5">5+ chambres</option>
-           </select>
-        </div>
+      <section id="residenceList" class="residence-list-area">
+        {% for residence in page_obj %}
+        <article class="residence-card"
+                 data-price="{{ residence.price_per_night|default:residence.price }}"
+                 data-rooms="{{ residence.number_of_rooms|default:'unknown' }}">
+          <img
+            class="residence-image"
+            src="{% if residence.image %}{{ residence.image.url }}{% else %}{% static 'images/default_residence.jpg' %}{% endif %}"
+            alt="Image de {{ residence.name }}"
+          />
+          <div class="residence-info">
+            <div class="residence-header">
+              <h3 class="residence-name">{{ residence.name }}</h3>
+              <p class="residence-price">{{ residence.price_per_night|default:residence.price }} FCFA/nuit</p>
+            </div>
+            <p class="residence-subtitle">
+              {% if residence.beds %}{{ residence.beds }} lit(s){% endif %}
+              {% if residence.baths %}, {{ residence.baths }} salle(s) de bain{% endif %}
+              {% if residence.location and not residence.short_description%}, {{ residence.location }}{% endif %}
+            </p>
 
-        <section id="residenceList" class="residence-list-area">
-          {% for residence in page_obj %}
-             <article class="residence-card"
-                      data-price="{{ residence.price_per_night|default:residence.price }}"
-                      data-rooms="{{ residence.number_of_rooms|default:'unknown' }}">
-               <img
-                 class="residence-image"
-                 src="{% if residence.image %}{{ residence.image.url }}{% else %}{% static 'images/default_residence.jpg' %}{% endif %}"
-                 alt="Image de {{ residence.name }}"
-               />
-               <div class="residence-info">
-                 <div class="residence-header">
-                   <h3 class="residence-name">{{ residence.name }}</h3>
-                   <p class="residence-price">{{ residence.price_per_night|default:residence.price }} FCFA/nuit</p>
-                 </div>
-                 <p class="residence-subtitle">
-                     {% if residence.beds %}{{ residence.beds }} lit(s){% endif %}
-                     {% if residence.baths %}, {{ residence.baths }} salle(s) de bain{% endif %}
-                     {% if residence.location and not residence.short_description%}, {{ residence.location }}{% endif %}
-                 </p>
+            {# --- Description Section --- #}
+            {% if residence.description %}
+            <p class="residence-description truncated">
+              {{ residence.description|safe }} {# Output the full description here #}
+            </p>
+            {% endif %}
+            {# --- End Description Section --- #}
 
-                 {# --- Description Section --- #}
-                 {% if residence.description %}
-                 <p class="residence-description truncated">
-                     {{ residence.description|safe }} {# Output the full description here #}
-                 </p>
-                 {% endif %}
-                 {# --- End Description Section --- #}
+            {% if residence.promotional_price_per_night %}
+            <p class="residence-promo-price">
+              Promo: {{ residence.promotional_price_per_night }} FCFA/nuit
+            </p>
+            {% endif %}
+            {% if residence.is_available is not None %}
+            <p class="residence-availability">
+              {% if residence.is_available %}
+              <span class="available">Disponible</span>
+              {% else %}
+              <span class="not-available">Non Disponible</span>
+              {% endif %}
+            </p>
+            {% endif %}
+            <div class="residence-actions">
+              {# CHANGE: Use button for Details toggle #}
+              {% if residence.description %}
+              <button type="button" class="btn btn-details description-toggle">Details...</button>
+              {% endif %}
+              {# Keep reserve as a link #}
+              <a href="#" class="btn btn-reserve">Réserver</a>
+            </div>
+          </div>
+        </article>
+        {% empty %}
+        <p class="no-results-message">Aucune résidence trouvée correspondant à vos critères initiaux.</p>
+        {% endfor %}
+      </section>
 
-                 {% if residence.promotional_price_per_night %}
-                    <p class="residence-promo-price">
-                      Promo: {{ residence.promotional_price_per_night }} FCFA/nuit
-                    </p>
-                 {% endif %}
-                 {% if residence.is_available is not None %}
-                    <p class="residence-availability">
-                      {% if residence.is_available %}
-                      <span class="available">Disponible</span>
-                      {% else %}
-                      <span class="not-available">Non Disponible</span>
-                      {% endif %}
-                    </p>
-                 {% endif %}
-                 <div class="residence-actions">
-                   {# CHANGE: Use button for Details toggle #}
-                   {% if residence.description %}
-                   <button type="button" class="btn btn-details description-toggle">Details...</button>
-                   {% endif %}
-                   {# Keep reserve as a link #}
-                   <a href="#" class="btn btn-reserve">Réserver</a>
-                 </div>
-               </div>
-             </article>
-          {% empty %}
-             <p class="no-results-message">Aucune résidence trouvée correspondant à vos critères initiaux.</p>
+      <nav class="pagination">
+        {# Pagination content remains the same #}
+        {% if page_obj.has_other_pages %}
+        <span class="step-links">
+          {% if page_obj.has_previous %}
+          <a href="?page=1" class="page-link">« début</a>
+          <a href="?page={{ page_obj.previous_page_number }}" class="page-link">‹ préc</a>
+          {% else %}
+          <span class="page-link disabled">« début</span>
+          <span class="page-link disabled">‹ préc</span>
+          {% endif %}
+          {% for num in page_obj.paginator.page_range %}
+          {% if page_obj.number == num %}
+          <span class="page-link current">{{ num }}</span>
+          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+          {% elif num == 1 %}
+          {% elif num == page_obj.paginator.num_pages %}
+          {% endif %}
           {% endfor %}
-        </section>
+          {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}" class="page-link">suiv ›</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">fin »</a>
+          {% else %}
+          <span class="page-link disabled">suiv ›</span>
+          <span class="page-link disabled">fin »</span>
+          {% endif %}
+        </span>
+        {% endif %}
+      </nav>
+    </main>
 
-        <nav class="pagination">
-            {# Pagination content remains the same #}
-             {% if page_obj.has_other_pages %}
-             <span class="step-links">
-               {% if page_obj.has_previous %}
-                 <a href="?page=1" class="page-link">« début</a>
-                 <a href="?page={{ page_obj.previous_page_number }}" class="page-link">‹ préc</a>
-               {% else %}
-                 <span class="page-link disabled">« début</span>
-                 <span class="page-link disabled">‹ préc</span>
-               {% endif %}
-               {% for num in page_obj.paginator.page_range %}
-                 {% if page_obj.number == num %}
-                   <span class="page-link current">{{ num }}</span>
-                 {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                   <a href="?page={{ num }}" class="page-link">{{ num }}</a>
-                 {% elif num == 1 %}
-                 {% elif num == page_obj.paginator.num_pages %}
-                 {% endif %}
-               {% endfor %}
-               {% if page_obj.has_next %}
-                 <a href="?page={{ page_obj.next_page_number }}" class="page-link">suiv ›</a>
-                 <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">fin »</a>
-               {% else %}
-                 <span class="page-link disabled">suiv ›</span>
-                 <span class="page-link disabled">fin »</span>
-               {% endif %}
-             </span>
-           {% endif %}
-        </nav>
-      </main>
-
-      <aside class="filter-sidebar">
-        {# Sidebar content remains the same #}
-         <h2 class="filter-title">Budget</h2>
-        <div class="filter-group">
-          <div class="budget-option">
-            <input type="radio" id="budgetRange50_100" name="budget_range" value="50000-100000">
-            <label for="budgetRange50_100">50 000 FCFA - 100 000 FCFA</label>
-          </div>
-          <div class="budget-option">
-            <input type="radio" id="budgetRange100_150" name="budget_range" value="100000-150000">
-            <label for="budgetRange100_150">100 000 FCFA - 150 000 FCFA</label>
-          </div>
-          <div class="budget-option">
-            <input type="radio" id="budgetRange150_200" name="budget_range" value="150000-200000">
-            <label for="budgetRange150_200">150 000 FCFA - 200 000 FCFA</label>
-          </div>
-           <div class="budget-option">
-            <input type="radio" id="budgetRange200_250" name="budget_range" value="200000-250000">
-            <label for="budgetRange200_250">200 000 FCFA - 250 000 FCFA</label>
-          </div>
-           <div class="budget-option">
-            <input type="radio" id="budgetRange250_inf" name="budget_range" value="250000-inf">
-            <label for="budgetRange250_inf">250 000+ FCFA</label>
-          </div>
-          <div class="budget-option custom-range">
-             <span class="custom-label">Ou spécifique:</span>
-             <div class="custom-inputs">
-                 <input type="number" id="minBudget" name="min_budget" placeholder="Min" step="1000">
-                 <span>à</span>
-                 <input type="number" id="maxBudget" name="max_budget" placeholder="Max" step="1000">
-             </div>
+    <aside class="filter-sidebar">
+      {# Sidebar content remains the same #}
+      <h2 class="filter-title">Budget</h2>
+      <div class="filter-group">
+        <div class="budget-option">
+          <input type="radio" id="budgetRange50_100" name="budget_range" value="50000-100000">
+          <label for="budgetRange50_100">50 000 FCFA - 100 000 FCFA</label>
+        </div>
+        <div class="budget-option">
+          <input type="radio" id="budgetRange100_150" name="budget_range" value="100000-150000">
+          <label for="budgetRange100_150">100 000 FCFA - 150 000 FCFA</label>
+        </div>
+        <div class="budget-option">
+          <input type="radio" id="budgetRange150_200" name="budget_range" value="150000-200000">
+          <label for="budgetRange150_200">150 000 FCFA - 200 000 FCFA</label>
+        </div>
+        <div class="budget-option">
+          <input type="radio" id="budgetRange200_250" name="budget_range" value="200000-250000">
+          <label for="budgetRange200_250">200 000 FCFA - 250 000 FCFA</label>
+        </div>
+        <div class="budget-option">
+          <input type="radio" id="budgetRange250_inf" name="budget_range" value="250000-inf">
+          <label for="budgetRange250_inf">250 000+ FCFA</label>
+        </div>
+        <div class="budget-option custom-range">
+          <span class="custom-label">Ou spécifique:</span>
+          <div class="custom-inputs">
+            <input type="number" id="minBudget" name="min_budget" placeholder="Min" step="1000">
+            <span>à</span>
+            <input type="number" id="maxBudget" name="max_budget" placeholder="Max" step="1000">
           </div>
         </div>
-        <button class="btn btn-clear-filters" onclick="clearFilters()">Effacer Filtres</button>
-      </aside>
+      </div>
+      <button class="btn btn-clear-filters" onclick="clearFilters()">Effacer Filtres</button>
+    </aside>
 
-    </div> {# End page-wrapper #}
+  </div> {# End page-wrapper #}
 
-    <script>
-      const residenceListDiv = document.getElementById("residenceList");
-      const paginationDiv = document.querySelector(".pagination");
-      const roomFilterDropdown = document.getElementById('roomFilterDropdown');
-      const budgetRadios = document.querySelectorAll('input[name="budget_range"]');
-      const minBudgetInput = document.getElementById('minBudget');
-      const maxBudgetInput = document.getElementById('maxBudget');
+  <script>
+   const residenceListDiv = document.getElementById("residenceList");
+   const paginationDiv = document.querySelector(".pagination");
+   const roomFilterDropdown = document.getElementById('roomFilterDropdown');
+   const budgetRadios = document.querySelectorAll('input[name="budget_range"]');
+   const minBudgetInput = document.getElementById('minBudget');
+   const maxBudgetInput = document.getElementById('maxBudget');
 
-      // --- HTML Generation (Update to include description) ---
-      function generateResidenceHTML(residence) {
-        const imageUrl = residence.image_url || '{% static "images/default_residence.jpg" %}';
-        const price = residence.price_per_night || residence.price || 'N/A';
-        const promoPrice = residence.promotional_price_per_night;
-        const isAvailable = residence.is_available;
-        const description = residence.description || '';
+   // --- HTML Generation (Update to include description) ---
+   function generateResidenceHTML(residence) {
+     const imageUrl = residence.image_url || '{% static "images/default_residence.jpg" %}';
+     const price = residence.price_per_night || residence.price || 'N/A';
+     const promoPrice = residence.promotional_price_per_night;
+     const isAvailable = residence.is_available;
+     const description = residence.description || '';
 
-        let subtitle = '';
-        if (residence.beds) subtitle += `${residence.beds} lit(s)`;
-        if (residence.baths) subtitle += `${subtitle ? ', ' : ''}${residence.baths} salle(s) de bain`;
-        if (residence.location) subtitle += `${subtitle ? ', ' : ''}${residence.location}`;
+     let subtitle = '';
+     if (residence.beds) subtitle += `${residence.beds} lit(s)`;
+     if (residence.baths) subtitle += `${subtitle ? ', ' : ''}${residence.baths} salle(s) de bain`;
+     if (residence.location) subtitle += `${subtitle ? ', ' : ''}${residence.location}`;
 
-        let promoHTML = "";
-        if (promoPrice) {
-          promoHTML = `<p class="residence-promo-price">Promo: ${promoPrice} FCFA/nuit</p>`;
-        }
+     let promoHTML = "";
+     if (promoPrice) {
+       promoHTML = `<p class="residence-promo-price">Promo: ${promoPrice} FCFA/nuit</p>`;
+     }
 
-        let availabilityHTML = "";
-        if (isAvailable !== undefined && isAvailable !== null) {
-          availabilityHTML = `<p class="residence-availability">${isAvailable ? '<span class="available">Disponible</span>' : '<span class="not-available">Non Disponible</span>'}</p>`;
-        }
+     let availabilityHTML = "";
+     if (isAvailable !== undefined && isAvailable !== null) {
+       availabilityHTML = `<p class="residence-availability">${isAvailable ? '<span class="available">Disponible</span>' : '<span class="not-available">Non Disponible</span>'}</p>`;
+     }
 
-        let descriptionHTML = "";
-        if (description) {
-          descriptionHTML = `<p class="residence-description truncated">${description}</p>`;
-        }
+     let descriptionHTML = "";
+     if (description) {
+       descriptionHTML = `<p class="residence-description truncated">${description}</p>`;
+     }
 
-        // ADD: Conditionally show Details button only if there is a description
-        let detailsButtonHTML = "";
-        if (description) {
-          detailsButtonHTML = `<button type="button" class="btn btn-details description-toggle">Details...</button>`;
-        }
+     // ADD: Conditionally show Details button only if there is a description
+     let detailsButtonHTML = "";
+     if (description) {
+       detailsButtonHTML = `<button type="button" class="btn btn-details description-toggle">Details...</button>`;
+     }
 
-        // reserve_url if someday we want to use something else than whatsapp message
-        const reserveUrl = residence.reserve_url || '#';
+     // reserve_url if someday we want to use something else than whatsapp message
+     const reserveUrl = residence.reserve_url || '#';
 
-        return `
+     return `
           <article class="residence-card" data-price="${price}" data-rooms="${residence.number_of_rooms || 'unknown'}">
             <img class="residence-image" src="${imageUrl}" alt="Image de ${residence.name}">
             <div class="residence-info">
@@ -214,140 +209,140 @@
               </div>
             </div>
           </article>
-        `;
-      }
+     `;
+   }
 
-      // --- Update UI ---
-      function updateResidenceList(data) {
-        let residenceHTML = "";
-        if (data && data.length > 0) {
-          data.forEach((residence) => {
-            residenceHTML += generateResidenceHTML(residence);
-          });
-        } else {
-          residenceHTML = "<p class='no-results-message'>Aucune résidence trouvée correspondant à vos critères.</p>";
-        }
-        residenceListDiv.innerHTML = residenceHTML;
-        if (paginationDiv) {
-          paginationDiv.style.display = "none";
-        }
-      }
+   // --- Update UI ---
+   function updateResidenceList(data) {
+     let residenceHTML = "";
+     if (data && data.length > 0) {
+       data.forEach((residence) => {
+         residenceHTML += generateResidenceHTML(residence);
+       });
+     } else {
+       residenceHTML = "<p class='no-results-message'>Aucune résidence trouvée correspondant à vos critères.</p>";
+     }
+     residenceListDiv.innerHTML = residenceHTML;
+     if (paginationDiv) {
+       paginationDiv.style.display = "none";
+     }
+   }
 
-      function showLoadingIndicator() {
-        residenceListDiv.innerHTML = '<p class="loading-message">Chargement...</p>';
-        if (paginationDiv) {
-          paginationDiv.style.display = "none";
-        }
-      }
+   function showLoadingIndicator() {
+     residenceListDiv.innerHTML = '<p class="loading-message">Chargement...</p>';
+     if (paginationDiv) {
+       paginationDiv.style.display = "none";
+     }
+   }
 
-      function showError(message) {
-        residenceListDiv.innerHTML = `<p class="error-message">Erreur: ${message}</p>`;
-      }
+   function showError(message) {
+     residenceListDiv.innerHTML = `<p class="error-message">Erreur: ${message}</p>`;
+   }
 
 
-      // --- Filtering Functions ---
-      function filterResidencesByRooms() {
-        const rooms = roomFilterDropdown.value;
-        if (!rooms) {
-          clearFilters();
-          return;
-        }
-        budgetRadios.forEach((radio) => (radio.checked = false));
-        minBudgetInput.value = "";
-        maxBudgetInput.value = "";
-        showLoadingIndicator();
-        fetch(`/residences/filter_by_rooms/rooms${rooms}/`)
-          .then(response => { if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); return response.json(); })
-          .then(updateResidenceList)
-          .catch(error => { console.error("Fetch error (rooms):", error); showError("Impossible de charger les résidences."); });
-      }
+   // --- Filtering Functions ---
+   function filterResidencesByRooms() {
+     const rooms = roomFilterDropdown.value;
+     if (!rooms) {
+       clearFilters();
+       return;
+     }
+     budgetRadios.forEach((radio) => (radio.checked = false));
+     minBudgetInput.value = "";
+     maxBudgetInput.value = "";
+     showLoadingIndicator();
+     fetch(`/residences/filter_by_rooms/rooms${rooms}/`)
+       .then(response => { if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); return response.json(); })
+       .then(updateResidenceList)
+       .catch(error => { console.error("Fetch error (rooms):", error); showError("Impossible de charger les résidences."); });
+   }
 
-      function filterResidencesByBudget() {
-        let minBudget = minBudgetInput.value;
-        let maxBudget = maxBudgetInput.value;
-        const budgetRange = document.querySelector('input[name="budget_range"]:checked');
-        roomFilterDropdown.value = "";
+   function filterResidencesByBudget() {
+     let minBudget = minBudgetInput.value;
+     let maxBudget = maxBudgetInput.value;
+     const budgetRange = document.querySelector('input[name="budget_range"]:checked');
+     roomFilterDropdown.value = "";
 
-        if (budgetRange) {
-          const rangeValues = budgetRange.value.split("-");
-          minBudget = rangeValues[0];
-          maxBudget = rangeValues[1] === "inf" ? "" : rangeValues[1];
-          minBudgetInput.value = "";
-          maxBudgetInput.value = "";
-        } else if (minBudget || maxBudget) {
-          budgetRadios.forEach((radio) => (radio.checked = false));
-        } else {
-          return;
-        }
+     if (budgetRange) {
+       const rangeValues = budgetRange.value.split("-");
+       minBudget = rangeValues[0];
+       maxBudget = rangeValues[1] === "inf" ? "" : rangeValues[1];
+       minBudgetInput.value = "";
+       maxBudgetInput.value = "";
+     } else if (minBudget || maxBudget) {
+       budgetRadios.forEach((radio) => (radio.checked = false));
+     } else {
+       return;
+     }
 
-        const queryParams = new URLSearchParams();
-        if (minBudget !== null && minBudget !== "") queryParams.append("min_budget", minBudget);
-        if (maxBudget !== null && maxBudget !== "") queryParams.append("max_budget", maxBudget);
+     const queryParams = new URLSearchParams();
+     if (minBudget !== null && minBudget !== "") queryParams.append("min_budget", minBudget);
+     if (maxBudget !== null && maxBudget !== "") queryParams.append("max_budget", maxBudget);
 
-        if (queryParams.toString() === "") {
-          clearFilters();
-          return;
-        }
-        showLoadingIndicator();
-        fetch(`/residences/filter_by_budget/?${queryParams.toString()}`)
-          .then(response => { if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); return response.json(); })
-          .then(updateResidenceList)
-          .catch(error => { console.error("Fetch error (budget):", error); showError("Impossible de charger les résidences."); });
-      }
+     if (queryParams.toString() === "") {
+       clearFilters();
+       return;
+     }
+     showLoadingIndicator();
+     fetch(`/residences/filter_by_budget/?${queryParams.toString()}`)
+       .then(response => { if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); return response.json(); })
+       .then(updateResidenceList)
+       .catch(error => { console.error("Fetch error (budget):", error); showError("Impossible de charger les résidences."); });
+   }
 
-      // --- Clear Filters ---
-      function clearFilters() {
-        roomFilterDropdown.value = "";
-        minBudgetInput.value = "";
-        maxBudgetInput.value = "";
-        budgetRadios.forEach((radio) => (radio.checked = false));
-        window.location.href = window.location.pathname;
-      }
+   // --- Clear Filters ---
+   function clearFilters() {
+     roomFilterDropdown.value = "";
+     minBudgetInput.value = "";
+     maxBudgetInput.value = "";
+     budgetRadios.forEach((radio) => (radio.checked = false));
+     window.location.href = window.location.pathname;
+   }
 
-      // --- Description Toggle Function ---
-      function toggleDescription(button) {
-        const infoDiv = button.closest('.residence-info');
-        if (!infoDiv) return; // Should not happen
+   // --- Description Toggle Function ---
+   function toggleDescription(button) {
+     const infoDiv = button.closest('.residence-info');
+     if (!infoDiv) return; // Should not happen
 
-        const descriptionP = infoDiv.querySelector('.residence-description');
-        if (!descriptionP) return; // Should not happen if button exists
+     const descriptionP = infoDiv.querySelector('.residence-description');
+     if (!descriptionP) return; // Should not happen if button exists
 
-        const isTruncated = descriptionP.classList.contains('truncated');
+     const isTruncated = descriptionP.classList.contains('truncated');
 
-        if (isTruncated) {
-          descriptionP.classList.remove('truncated');
-          button.textContent = 'Moins...'; // Change button text to "Show less"
-          // Optional: Add aria-expanded attribute for accessibility
-          button.setAttribute('aria-expanded', 'true');
-        } else {
-          descriptionP.classList.add('truncated');
-          button.textContent = 'Details...'; // Change button text back
-          // Optional: Add aria-expanded attribute for accessibility
-          button.setAttribute('aria-expanded', 'false');
-        }
-      }
+     if (isTruncated) {
+       descriptionP.classList.remove('truncated');
+       button.textContent = 'Moins...'; // Change button text to "Show less"
+       // Optional: Add aria-expanded attribute for accessibility
+       button.setAttribute('aria-expanded', 'true');
+     } else {
+       descriptionP.classList.add('truncated');
+       button.textContent = 'Details...'; // Change button text back
+       // Optional: Add aria-expanded attribute for accessibility
+       button.setAttribute('aria-expanded', 'false');
+     }
+   }
 
-      // --- Event Listeners ---
-      roomFilterDropdown.addEventListener('change', filterResidencesByRooms);
-      budgetRadios.forEach(radio => radio.addEventListener('change', filterResidencesByBudget));
-      minBudgetInput.addEventListener('change', filterResidencesByBudget);
-      maxBudgetInput.addEventListener('change', filterResidencesByBudget);
+   // --- Event Listeners ---
+   roomFilterDropdown.addEventListener('change', filterResidencesByRooms);
+   budgetRadios.forEach(radio => radio.addEventListener('change', filterResidencesByBudget));
+   minBudgetInput.addEventListener('change', filterResidencesByBudget);
+   maxBudgetInput.addEventListener('change', filterResidencesByBudget);
 
-      // Use event delegation for description toggles
-      residenceListDiv.addEventListener('click', function(event) {
-        // Check if the clicked element is the description toggle button
-        if (event.target.classList.contains('description-toggle')) {
-          toggleDescription(event.target);
-        }
-      });
+   // Use event delegation for description toggles
+   residenceListDiv.addEventListener('click', function(event) {
+     // Check if the clicked element is the description toggle button
+     if (event.target.classList.contains('description-toggle')) {
+       toggleDescription(event.target);
+     }
+   });
 
-      // Clear button listener (if not using onclick)
-      const clearButton = document.querySelector('.btn-clear-filters');
-      if (clearButton && !clearButton.hasAttribute('onclick')) {
-        clearButton.addEventListener('click', clearFilters);
-      }
+   // Clear button listener (if not using onclick)
+   const clearButton = document.querySelector('.btn-clear-filters');
+   if (clearButton && !clearButton.hasAttribute('onclick')) {
+     clearButton.addEventListener('click', clearFilters);
+   }
 
-    </script>
-  </body>
-  {% include 'residence/footer.html' %}
-</html>
+  </script>
+</body>
+{% include 'residence/footer.html' %}
+
