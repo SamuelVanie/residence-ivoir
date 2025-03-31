@@ -1,4 +1,3 @@
-/* --- Global Styles & Resets --- */
 :root {
   --primary-font: "Lexend Exa", sans-serif;
   --secondary-font: "Newsreader", serif;
@@ -9,6 +8,7 @@
   --background-dark: #000000;
   --border-color: #ccc;
 }
+
 
 * {
   margin: 0;

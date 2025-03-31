@@ -1,3 +1,26 @@
+/* Setting up some fonts */
+@font-face {
+  font-family: 'Lexend Exa';
+  src: url('../fonts/LexendExa-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'Newsreader';
+  src: url('../fonts/Newsreader-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Playball';
+  src: url('../fonts/Playball-Regular.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
 /* Navigation Bar Styles */
 .navbar {
   display: flex;
