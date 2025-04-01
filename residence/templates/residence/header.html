@@ -35,10 +35,7 @@
         >
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/#about-us" id="about-us-link">A propos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">Contact</a>
+        <a class="nav-link" href="/#Contact" id="contact-link">Contact</a>
       </li>
     </ul>
   </div>
@@ -62,8 +59,8 @@
 </nav>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const aboutUsLink = document.getElementById("about-us-link");
-    if (window.location.hash === "#about-us") {
+    const contactLink = document.getElementById("contact-link");
+    if (window.location.hash === "#Contact") {
       aboutUsLink.classList.add("active");
     }
   });

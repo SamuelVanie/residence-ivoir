@@ -32,6 +32,11 @@
 
 
 ** TODO Phase 4: Reservation Functionality [0/2]
+:LOGBOOK:
+CLOCK: [2025-04-01 Tue 19:45]
+CLOCK: [2025-04-01 Tue 06:33]--[2025-04-01 Tue 07:59] =>  1:26
+CLOCK: [2025-04-01 Tue 06:15]--[2025-04-01 Tue 06:30] =>  0:15
+:END:
 - [ ] Add a reservation button for each residence
    - Estimate: 2 hours
 - [ ] Integrate redirection to WhatsApp or SMS with a predefined template
