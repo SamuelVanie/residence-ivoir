@@ -1,7 +1,8 @@
 /* --- Footer Styles --- */
 .site-footer {
   background-color: var(--background-light);
-  padding: 40px 0;
+  padding: 40px 0px;
+  margin: 0px 100px;
   border-top: 1px solid #e0e0e0; /* Light gray separator line */
   font-size: 0.95rem; /* Base font size for footer */
   color: #555; /* Default text color for footer */
@@ -12,11 +13,10 @@
   justify-content: space-between;
   align-items: flex-start; /* Align items to the top */
   flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
-  gap: 30px; /* Spacing between columns */
+  gap: 20px; /* Spacing between columns */
 }
 
 .footer-col {
-  flex: 1; /* Allow columns to grow */
   min-width: 200px; /* Minimum width before wrapping */
   font-family: var(--primary-font);
 }
