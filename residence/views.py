@@ -57,7 +57,7 @@ def filter_residences_by_budget(request):
     return JsonResponse(data, safe=False)
 
 def whatsapp_reserve_link(request, residence_id):
-    admin_phone_number = "+2250748552211" # Fallback number
+    admin_phone_number = "+2250787876981" # Fallback number
     try:
         admin_profile = AdminProfile.objects.first() # Assuming only one admin profile
         if admin_profile and admin_profile.phone_number:
@@ -79,14 +79,17 @@ def whatsapp_reserve_link(request, residence_id):
     message = "\n".join(message_parts)
     whatsapp_message = quote(message)
     whatsapp_link = f"https://wa.me/{admin_phone_number}?text={whatsapp_message}"
+
     return HttpResponseRedirect(whatsapp_link)
 
 def whatsapp_contact_link(request):
-    admin_phone_number = "+2250748552211" # Fallback number
+    admin_phone_number = "+2250787876981" # Fallback number
     try:
         admin_profile = AdminProfile.objects.first() # Assuming only one admin profile
         if admin_profile and admin_profile.phone_number:
             admin_phone_number = admin_profile.phone_number
+            admin_phone_number = admin_phone_number.replace("+", "")
+            
     except AdminProfile.DoesNotExist:
         pass # Use default number if AdminProfile not found
     message = request.POST.get('question', '')
