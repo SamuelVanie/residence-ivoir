@@ -144,6 +144,7 @@ body {
 }
 
 .not-available {
+  font-size: clamp(2px, .9vw, 1.0vw);
   color: #d32f2f;
   font-weight: 500;
 }
