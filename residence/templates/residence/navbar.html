@@ -7,16 +7,14 @@
   </a>
   <button
     class="navbar-toggler"
+    id="navbarToggler"
     type="button"
-    data-bs-toggle="collapse"
-    data-bs-target="#navbarNav"
-    aria-controls="navbarNav"
-    aria-expanded="false"
     aria-label="Toggle navigation"
-  >
+    aria-expanded="false"
+    aria-controls="navbarNav">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
+  <div class="navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item">
         <a
@@ -38,30 +36,62 @@
         <a class="nav-link" href="/#Contact" id="contact-link">Contact</a>
       </li>
     </ul>
+    <!-- Mobile shortcuts (inside collapse) -->
+    <div class="shortcuts-icons shortcuts-icons-mobile">
+        <li class="shortcut-icon">
+          <a href="">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 30 30" fill="currentColor">
+              <path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z"></path>
+            </svg>
+          </a>
+        </li>
+    </div>
   </div>
-  <div class="shortcuts-icons">
+  <!-- Desktop shortcuts (outside collapse) -->
+  <div class="shortcuts-icons shortcuts-icons-desktop">
     <li class="shortcut-icon">
-      <a href=""
-        ><svg
-          xmlns="http://www.w3.org/2000/svg"
-          x="0px"
-          y="0px"
-          width="100"
-          height="100"
-          viewBox="0 0 30 30"
-        >
-          <path
-            d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z"
-          ></path></svg
-      ></a>
+      <a href="">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 30 30" fill="currentColor">
+          <path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z"></path>
+        </svg>
+      </a>
     </li>
   </div>
 </nav>
+
+<!-- JavaScript for Toggling -->
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const contactLink = document.getElementById("contact-link");
-    if (window.location.hash === "#Contact") {
-      aboutUsLink.classList.add("active");
-    }
-  });
+ document.addEventListener("DOMContentLoaded", function () {
+   const toggler = document.getElementById("navbarToggler");
+   const collapseMenu = document.getElementById("navbarNav");
+   const contactLink = document.getElementById("contact-link");
+
+   // Toggle menu visibility
+   if (toggler && collapseMenu) {
+     toggler.addEventListener("click", function () {
+       collapseMenu.classList.toggle("is-active"); // Use a custom class
+
+       // Toggle aria-expanded attribute for accessibility
+       const isExpanded = collapseMenu.classList.contains("is-active");
+       toggler.setAttribute("aria-expanded", isExpanded);
+     });
+   }
+
+   // Highlight contact link if hash matches
+   if (contactLink && window.location.hash === "#Contact") {
+     contactLink.classList.add("active");
+   }
+
+   // Optional: Close menu when clicking outside of it (more advanced)
+   document.addEventListener('click', function(event) {
+     const isClickInsideNav = collapseMenu.contains(event.target);
+     const isClickOnToggler = toggler.contains(event.target);
+
+     if (!isClickInsideNav && !isClickOnToggler && collapseMenu.classList.contains('is-active')) {
+       collapseMenu.classList.remove('is-active');
+       toggler.setAttribute('aria-expanded', 'false');
+     }
+   });
+   
+ });
 </script>

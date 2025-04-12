@@ -1,19 +1,16 @@
-/* Setting up some fonts */
+/* Setting up some fonts (Keep as is) */
 @font-face {
   font-family: 'Lexend Exa';
   src: url('../fonts/LexendExa-VariableFont_wght.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
 }
-
-
 @font-face {
   font-family: 'Newsreader';
   src: url('../fonts/Newsreader-VariableFont_opsz,wght.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'Playball';
   src: url('../fonts/Playball-Regular.ttf') format('truetype');
@@ -21,27 +18,27 @@
   font-style: normal;
 }
 
-/* Navigation Bar Styles */
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 10px;
+  padding: 10px 15px;
   background-color: white;
   border-bottom: 1px solid rgba(200, 200, 200, 0.5);
+  position: relative;
 }
 
 .navbar-brand {
   display: flex;
   align-items: center;
   text-decoration: none;
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .navbar-brand img {
   height: 40px;
 }
 
-/* Logo text styling */
 .navbar-brand::after {
   content: "residenceivoire";
   font-family: "Playball";
@@ -50,34 +47,51 @@
   margin-left: 5px;
 }
 
-/* Collapse and toggler styles */
-.collapse {
-  display: flex;
-}
-
+/* Desktop: Collapse area is visible and contains inline elements */
 .navbar-collapse {
-  justify-content: center;
-  flex-grow: 1;
+  display: flex; /* Visible and flex layout on desktop */
+  justify-content: center; /* Center the nav links */
+  align-items: center; /* Align links vertically */
+  flex-grow: 1; /* Allow it to take up space */
 }
 
+/* Desktop: Hide the toggler */
 .navbar-toggler {
-  display: none; /* Hide on desktop */
+  display: none;
+  /* Other toggler styles remain but are inactive until mobile */
   background: none;
-  border: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.75rem;
   cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.55);
 }
 
-/* Nav menu styling */
+.navbar-toggler-icon {
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+}
+
+/* Desktop: Nav items are in a row */
 .navbar-nav {
   display: flex;
+  flex-direction: row; /* Explicitly row for desktop */
   list-style: none;
-  margin: 0;
-  padding: 0;
-  gap: 30px; /* Space between menu items */
+  margin: 0; /* Reset margin */
+  padding: 0; /* Reset padding */
+  gap: 30px; /* Space between items */
 }
 
 .nav-item {
-  position: relative;
+  position: relative; /* Keep for potential future dropdowns */
 }
 
 .nav-link {
@@ -87,38 +101,38 @@
   text-decoration: none;
   font-size: 15px;
   font-weight: 500;
-  font-family: Lexend Exa;
-  padding: 5px 0;
+  font-family: 'Lexend Exa', sans-serif;
+  padding: 5px 0; /* Vertical padding */
   transition: color 0.3s ease;
 }
 
 .nav-link:hover,
 .nav-link.active {
-  color: #b8860b; /* Golden brown for hover/active state */
+  color: #b8860b;
 }
 
-/* Dropdown arrow for nav items with children */
-.nav-link::after {
-  content: "⌄";
-  font-size: 10px;
-  transition: transform 0.3s ease;
+/* --- Desktop Icons Styles --- */
+.shortcuts-icons { /* Base class for icon containers */
+    display: flex;
+    align-items: center;
+    list-style: none; /* Apply list-style none here */
+    padding: 0; /* Reset padding */
+    margin: 0; /* Reset margin */
 }
 
-/* Hide dropdown arrows for items without children */
-.nav-link:not([href="/"]):not([href="{% url 'residence_list' %}"]):not(
-    [href="/#about-us"]
-  ):not([href=""]) {
-  content: none;
+.shortcuts-icons-desktop {
+  display: flex; /* Show desktop icons */
+  padding-left: 20px; /* Space between nav links and icons */
 }
 
-/* Search icon styling */
-.shortcuts-icons {
-  display: flex;
-  align-items: center;
+/* Desktop: Hide the mobile icons container */
+.shortcuts-icons-mobile {
+  display: none;
 }
 
+/* Individual icon style */
 .shortcut-icon {
-  list-style: none;
+ /* No list-style needed if applied to parent */
 }
 
 .shortcut-icon a {
@@ -127,6 +141,99 @@
   justify-content: center;
   width: 24px;
   height: 24px;
-  border-radius: 50%;
+  color: #333;
+  transition: color 0.3s ease;
+}
+.shortcut-icon a:hover {
+    color: #b8860b;
+}
+.shortcut-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
+
+/* --- Responsive Styles (Tablet & Mobile) --- */
+@media (max-width: 991.98px) {
+
+  /* Mobile: Show the toggler */
+  .navbar-toggler {
+    display: block;
+  }
+
+  /* Mobile: Hide the main collapse area by default */
+  .navbar-collapse {
+    display: none; /* Hide by default */
+    /* Styles for when it becomes visible (absolute positioning, etc.) */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: white;
+    border-top: 1px solid rgba(200, 200, 200, 0.5);
+    padding: 15px 20px;
+    z-index: 1050;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Reset desktop flex properties that are not needed or overridden */
+    flex-grow: initial;
+    justify-content: flex-start;
+  }
+
+  /* Mobile: Style when the menu is active (JS adds .is-active class) */
+  .navbar-collapse.is-active {
+    display: flex; /* Show the menu */
+    flex-direction: column; /* Stack items vertically */
+    align-items: stretch; /* Make items take full width */
+  }
+
+  /* Mobile: Stack nav items vertically */
+  .navbar-nav {
+    flex-direction: column;
+    gap: 0; /* Reset gap, use padding/borders */
+    width: 100%; /* Take full width */
+    align-items: flex-start; /* Align text left */
+  }
+
+  /* Mobile: Make nav items full width */
+  .nav-item {
+      width: 100%;
+  }
+
+  /* Mobile: Adjust link padding and add separators */
+  .nav-link {
+    padding: 10px 0; /* More vertical padding */
+    width: 100%; /* Make link clickable area full width */
+    border-bottom: 1px solid #eee; /* Separator */
+  }
+  .nav-item:last-child .nav-link {
+      border-bottom: none; /* Remove border from last item */
+  }
+
+  /* Mobile: Hide the desktop icons container */
+  .shortcuts-icons-desktop {
+    display: none;
+  }
+
+  /* Mobile: Show and style the mobile icons container */
+  .shortcuts-icons-mobile {
+    display: flex; /* Show inside collapse */
+    padding: 10px 0 0 0;
+    margin-top: 10px; /* Space above */
+    width: 100%;
+    justify-content: flex-start; /* Align left */
+    border-top: 1px solid #eee; /* Separator */
+  }
+
+  /* Mobile: Optional adjustments */
+  .navbar-brand::after {
+    /* font-size: 20px; */
+  }
+}
+
+/* Optional: Further refinement for very small screens */
+@media (max-width: 360px) {
+    .navbar-brand::after {
+        font-size: 18px;
+    }
+}
