@@ -373,27 +373,6 @@ body {
   color: #d32f2f;
 }
 
-/* Media Queries */
-@media (max-width: 768px) {
-  .page-wrapper {
-    flex-direction: column;
-  }
-
-  .filter-sidebar {
-    width: auto;
-    order: -1;
-  }
-
-  .residence-card {
-    flex-direction: column;
-  }
-
-  .residence-image {
-    width: 100%;
-    height: 180px;
-  }
-}
-
 /* Active states for page 1 in pagination */
 .page-link.current {
   background-color: var(--primary-color);

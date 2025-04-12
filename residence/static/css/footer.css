@@ -109,32 +109,3 @@
   color: var(--accent-color); /* Highlight on hover */
   text-decoration: underline;
 }
-
-/* --- Footer Responsive Adjustments --- */
-@media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column; /* Stack columns */
-    align-items: flex-start; /* Align stacked columns to the left */
-    gap: 40px; /* Increase gap for stacked layout */
-  }
-
-  .footer-col {
-    flex-basis: auto; /* Reset basis */
-    width: 100%; /* Take full width when stacked */
-    min-width: unset;
-  }
-
-  .footer-about,
-  .footer-links {
-    /* Optional: Center text in columns on mobile */
-    /* text-align: center; */
-  }
-
-  .footer-logo,
-  .footer-social,
-  .footer-contact {
-    /* Optional: Center logo/social/contact within their column */
-    /* justify-content: center; */
-    /* text-align: center; */
-  }
-}
