@@ -44,6 +44,7 @@ def residence_list(request):
 def filter_residences_by_rooms(request, rooms):
     residences = Residence.objects.filter(number_of_rooms=rooms)
     data = [{
+        'id': residence.id,
         'name': residence.name,
         'number_of_rooms': residence.number_of_rooms,
         'price': float(residence.price),
@@ -69,6 +70,7 @@ def filter_residences_by_budget(request):
         residences = Residence.objects.all()
 
     data = [{
+        'id': residence.id,
         'name': residence.name,
         'number_of_rooms': residence.number_of_rooms,
         'price': float(residence.price),

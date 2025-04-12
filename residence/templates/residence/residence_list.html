@@ -203,6 +203,8 @@
      const promoPrice = residence.promotional_price_per_night;
      const isAvailable = residence.is_available;
      const description = residence.description || '';
+     const residenceId = residence.id
+     const name = residence.name || '';
 
      let subtitle = '';
      if (residence.number_of_rooms) subtitle += `${residence.number_of_rooms} chambre(s)`;
@@ -240,10 +242,10 @@
 
      return `
           <article class="residence-card" data-id="${residenceId}" data-name="${escapeJS(name)}">
-            <img class="residence-image" src="${imageUrl}" alt="Image de ${residence.name}">
+            <img class="residence-image" src="${imageUrl}" alt="Image de ${name}">
             <div class="residence-info">
               <div class="residence-header">
-                <h3 class="residence-name">${residence.name}</h3>
+                <h3 class="residence-name">${name}</h3>
                 <p class="residence-price">${price} FCFA/nuit</p>
               </div>
               <p class="residence-subtitle">${subtitle || ''}</p>
