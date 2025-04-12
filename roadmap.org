@@ -31,18 +31,22 @@
 - [X] Create the homepage
 
 
-** TODO Phase 4: Reservation Functionality [0/2]
+** TODO Phase 4: Reservation Functionality [3/3]
 :LOGBOOK:
+CLOCK: [2025-04-12 Sat 03:51]--[2025-04-12 Sat 05:59] =>  2:08
+CLOCK: [2025-04-06 Sun 06:56]--[2025-04-06 Sun 10:01] =>  3:05
 CLOCK: [2025-04-01 Tue 22:18]--[2025-04-01 Tue 22:57] =>  0:39
 CLOCK: [2025-04-01 Tue 19:45]--[2025-04-01 Tue 22:16] =>  2:31
 CLOCK: [2025-04-01 Tue 06:33]--[2025-04-01 Tue 07:59] =>  1:26
 CLOCK: [2025-04-01 Tue 06:15]--[2025-04-01 Tue 06:30] =>  0:15
 :END:
-- [ ] Add a reservation button for each residence
-   - Estimate: 2 hours
-- [ ] Integrate redirection to WhatsApp or SMS with a predefined template
-   - Estimate: 4 hours
-   - Note: Research and implement URL schemes for WhatsApp/SMS integration.
+- [X] Add a reservation button for each residence
+  - Estimate: 2 hours
+- [X] Add modal for more information about the reservation
+     
+- [X] Integrate redirection to WhatsApp or SMS with a predefined template
+  - Estimate: 4 hours
+  - Note: Research and implement URL schemes for WhatsApp/SMS integration.
 
 ** Phase 5: Admin Interface Enhancements [0/2]
 - [ ] Customize the admin interface for better usability

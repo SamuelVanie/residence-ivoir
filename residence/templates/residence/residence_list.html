@@ -20,8 +20,11 @@
       <section id="residenceList" class="residence-list-area">
         {% for residence in page_obj %}
         <article class="residence-card"
-                 data-price="{{ residence.price_per_night|default:residence.price }}"
-                 data-rooms="{{ residence.number_of_rooms|default:'unknown' }}">
+                 data-id="{{ residence.id }}"
+                 data-name="{{ residence.name|escapejs }}"
+                 data-rooms="{{ residence.number_of_rooms | default:'unknown' }}"
+                 data-price=" {{ residence.price_per_night|default:residence.price }}"
+        >
           <img
             class="residence-image"
             src="{% if residence.image %}{{ residence.image.url }}{% else %}{% static 'images/default_residence.jpg' %}{% endif %}"
@@ -65,7 +68,10 @@
               <button type="button" class="btn btn-details description-toggle">Details...</button>
               {% endif %}
               {# Keep reserve as a link #}
-              <a href="#" class="btn btn-reserve">Réserver</a>
+              <button type="button" class="btn btn-reserve"
+                      data-residence-id="{{ residence.id }}"
+                      data-residence-name="{{ residence.name }}"
+              >Réserver</button>
             </div>
           </div>
         </article>
@@ -141,6 +147,33 @@
       <button class="btn btn-clear-filters" onclick="clearFilters()">Effacer Filtres</button>
     </aside>
 
+
+    {# --- Reservation Modal --- #}
+    <div id="reservation-modal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close-btn">×</span>
+        <h3 id="modalResidenceName">Réserver la résidence</h3>
+        <form id="reservationForm" method="POST" action="{% url 'generate_whatsapp_reservation_link' %}">
+          {% csrf_token %}
+          {# Hidden input to store residence data if needed, or retrieve from button data #}
+          <input type="hidden" id="modalResidenceId" name="residence_id">
+
+          <div class="modal-field">
+            <label for="reservationDays">Nombre de jours souhaités:</label>
+            <input type="number" id="reservationDays" name="days" min="1" required>
+          </div>
+          <div class="modal-field">
+            <label for="reservationDate">Date d'arrivée prévue:</label>
+            <input type="date" id="reservationDate" name="arrival_date" required>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn btn-cancel modal-cancel-btn">Annuler</button>
+            <button type="submit" class="btn btn-reserve">Confirmer Réservation</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
   </div> {# End page-wrapper #}
 
   <script>
@@ -151,6 +184,18 @@
    const minBudgetInput = document.getElementById('minBudget');
    const maxBudgetInput = document.getElementById('maxBudget');
 
+
+
+   // Modal Elements
+   const reservationModal = document.getElementById('reservation-modal');
+   const modalCloseBtn = reservationModal.querySelector('.modal-close-btn');
+   const modalCancelBtn = reservationModal.querySelector('.modal-cancel-btn');
+   const reservationForm = document.getElementById('reservationForm');
+   const modalResidenceNameH3 = document.getElementById('modalResidenceName');
+   const modalResidenceIdInput = document.getElementById('modalResidenceId'); // Input to set residence_id
+
+
+   
    // --- HTML Generation (Update to include description) ---
    function generateResidenceHTML(residence) {
      const imageUrl = residence.image_url || '{% static "images/default_residence.jpg" %}';
@@ -160,8 +205,7 @@
      const description = residence.description || '';
 
      let subtitle = '';
-     if (residence.beds) subtitle += `${residence.beds} lit(s)`;
-     if (residence.baths) subtitle += `${subtitle ? ', ' : ''}${residence.baths} salle(s) de bain`;
+     if (residence.number_of_rooms) subtitle += `${residence.number_of_rooms} chambre(s)`;
      if (residence.location) subtitle += `${subtitle ? ', ' : ''}${residence.location}`;
 
      let promoHTML = "";
@@ -188,8 +232,14 @@
      // reserve_url if someday we want to use something else than whatsapp message
      const reserveUrl = residence.reserve_url || '#';
 
+
+     const reserveButtonHTML = `
+       <button type="button" class="btn btn-reserve"
+               data-residence-id="${residenceId}"
+               data-residence-name="${escapeJS(name)}">Réserver</button>`;
+
      return `
-          <article class="residence-card" data-price="${price}" data-rooms="${residence.number_of_rooms || 'unknown'}">
+          <article class="residence-card" data-id="${residenceId}" data-name="${escapeJS(name)}">
             <img class="residence-image" src="${imageUrl}" alt="Image de ${residence.name}">
             <div class="residence-info">
               <div class="residence-header">
@@ -201,14 +251,21 @@
               ${promoHTML}
               ${availabilityHTML}
               <div class="residence-actions">
-                 ${detailsButtonHTML} {# Inject Details button HTML #}
-                 <a href="${reserveUrl}" class="btn btn-reserve">Réserver</a>
+                 ${detailsButtonHTML}
+                 ${reserveButtonHTML}
               </div>
             </div>
           </article>
      `;
    }
 
+
+   function escapeJS(str) {
+     if (!str) return '';
+     return String(str).replace(/"/g, '"').replace(/'/g, '\'');
+   }
+
+   
    // --- Update UI ---
    function updateResidenceList(data) {
      let residenceHTML = "";
@@ -325,19 +382,54 @@
    minBudgetInput.addEventListener('change', filterResidencesByBudget);
    maxBudgetInput.addEventListener('change', filterResidencesByBudget);
 
-   // Use event delegation for description toggles
-   residenceListDiv.addEventListener('click', function(event) {
-     // Check if the clicked element is the description toggle button
-     if (event.target.classList.contains('description-toggle')) {
-       toggleDescription(event.target);
-     }
-   });
 
    // Clear button listener (if not using onclick)
    const clearButton = document.querySelector('.btn-clear-filters');
    if (clearButton && !clearButton.hasAttribute('onclick')) {
      clearButton.addEventListener('click', clearFilters);
    }
+
+
+   function openModal(button) {
+     const residenceId = button.dataset.residenceId;
+     const name = button.dataset.residenceName || 'Cette résidence';
+     console.log("Don't forget to remove me---------------");
+     console.log(residenceId);
+
+     if (!residenceId) {
+       console.error("Cannot open modal: residence ID missing from button.");
+       alert("Erreur: Impossible d'ouvrir le formulaire de réservation.");
+       return;
+     }
+     modalResidenceIdInput.value = residenceId;
+     modalResidenceNameH3.textContent = `Réserver : ${name}`;
+     reservationForm.reset();
+     reservationModal.style.display = 'block';
+   }
+
+   function closeModal() {
+     reservationModal.style.display = 'none';
+   }
+
+
+   residenceListDiv.addEventListener('click', function(event) {
+     if (event.target.classList.contains('description-toggle')) {
+       toggleDescription(event.target);
+     }
+     else if (event.target.classList.contains('btn-reserve')) {
+       openModal(event.target);
+     }
+   });
+
+   modalCloseBtn.addEventListener('click', closeModal);
+   modalCancelBtn.addEventListener('click', closeModal);
+
+   // Close modal if user clicks outside the modal content
+   window.addEventListener('click', function(event) {
+     if (event.target == reservationModal) {
+       closeModal();
+     }
+   });
 
   </script>
 </body>
