@@ -20,6 +20,7 @@
             python312Packages.python-lsp-server
             nodejs_23
             nodePackages.prettier
+            heroku
           ];
 
           shellHook = ''
