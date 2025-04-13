@@ -1,1 +1,1 @@
-web: gunicorn residence-ivoir.wsgi --log-file -
+web: gunicorn residenceivoir.wsgi --log-file -
