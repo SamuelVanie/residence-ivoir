@@ -26,6 +26,7 @@
             nodejs_23
             nodePackages.prettier
             heroku
+            postgresql
           ];
 
           shellHook = ''
