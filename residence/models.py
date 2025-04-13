@@ -5,7 +5,7 @@ class Residence(models.Model):
     # Fields for residence characteristics (as described in roadmap)
     name = models.CharField(max_length=255)
     number_of_rooms = models.IntegerField()
-    promotional_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    promotional_price = models.DecimalField(max_digits=10, blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     is_available = models.BooleanField(default=True, help_text="Residence available for getting booked rn?")
     location = models.CharField(max_length=255, default='Yamoussoukro')
