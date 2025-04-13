@@ -90,19 +90,21 @@ body {
 .residence-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
   margin-bottom: 8px;
 }
 
 .residence-name {
   margin: 0;
-  font-size: 18px;
+  font-size: clamp(1.1rem, 3vw, 1.3rem);
   font-weight: 600;
 }
 
 .residence-price {
+  width: 105px;
+  justify-self: end;
   font-weight: bold;
   color: var(--primary-color);
+  font-size: clamp(.8rem, 2.0vw, 1rem);
   margin: 0;
 }
 
@@ -113,7 +115,7 @@ body {
 }
 
 .residence-description {
-  font-size: 12px;
+  font-size: clamp(0.75rem, 1.75vw, 0.9rem);
   color: #555;
   font-weight: 300;
   margin: 8px 0;

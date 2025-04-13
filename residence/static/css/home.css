@@ -20,7 +20,7 @@ body {
   color: var(--text-dark);
   background-color: var(--background-light);
   line-height: 1.6;
-  font-size: 16px; /* Base font size */
+  font-size: clamp(1rem, 2vw, 1.2rem); /* Responsive base font size */
 }
 
 img {
@@ -39,7 +39,7 @@ h3 {
 }
 
 h1 {
-  font-size: clamp(2.5rem, 6vw, 4rem); /* Responsive font size */
+  font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 300;
 }
 

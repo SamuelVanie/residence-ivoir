@@ -4,7 +4,7 @@
   padding: 40px 0px;
   margin: 0px 100px;
   border-top: 1px solid #e0e0e0; /* Light gray separator line */
-  font-size: 0.95rem; /* Base font size for footer */
+  font-size: clamp(0.8rem, 1.75vw, 0.95rem); /* Base font size for footer */
   color: #555; /* Default text color for footer */
 }
 

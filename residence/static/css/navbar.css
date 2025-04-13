@@ -42,7 +42,7 @@
 .navbar-brand::after {
   content: "residenceivoire";
   font-family: "Playball";
-  font-size: 24px;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
   color: #b8860b;
   margin-left: 5px;
 }
@@ -99,7 +99,7 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  font-size: 15px;
+  font-size: clamp(0.85rem, 2vw, 1rem);
   font-weight: 500;
   font-family: 'Lexend Exa', sans-serif;
   padding: 5px 0; /* Vertical padding */
