@@ -84,21 +84,20 @@ WSGI_APPLICATION = 'residenceivoir.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # DATABASES = {
-#     'default': dj_database_url.config(
-#         # Use sqlite locally if DATABASE_URL is not set
-#         default=f"sqlite:///{os.path.join(BASE_DIR, 'db.sqlite3')}",
-#         conn_max_age=600, # Optional: connection pooling
-#         ssl_require=os.environ.get('DATABASE_URL', '').startswith('postgres://') # Require SSL for Heroku Postgres
-#     )
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
 # }
+
+DATABASES = {
+    'default': dj_database_url.config(
+        # Use sqlite locally if DATABASE_URL is not set
+        conn_max_age=600, # Optional: connection pooling
+        ssl_require=True
+    )
+}
 
 
 # Password validation
