@@ -29,13 +29,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-p37@9g8#q$i@%zl@1ns!+
 # DEBUG = True
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    os.environ.get('HEROKU_APP_NAME', '') + '.heroku.com',
-    '127.0.0.1',
-    'localhost',
-    # 'www.yourdomain.com'
-]
 
+ALLOWED_HOSTS_STR = os.environ.get('ALLOWED_HOSTS')
+
+if ALLOWED_HOSTS_STR:
+    ALLOWED_HOSTS = ALLOWED_HOSTS_STR.split(',')
+else:
+    ALLOWED_HOSTS = '127.0.0.1'
 
 # Application definition
 
