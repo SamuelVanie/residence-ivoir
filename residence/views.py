@@ -33,7 +33,7 @@ def home(request):
     return render(request, 'home.html')
 
 def residence_list(request):
-    residence_list = Residence.objects.all()
+    residence_list = Residence.objects.all().order_by('name')
     paginator = Paginator(residence_list, 6) # Show 6 residences per page.
 
     page_number = request.GET.get('page')
