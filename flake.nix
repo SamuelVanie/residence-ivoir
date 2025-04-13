@@ -17,6 +17,10 @@
             python312Packages.django
             python312Packages.pillow
             python312Packages.flake8
+            python312Packages.gunicorn
+            python312Packages.dj-database-url
+            python312Packages.whitenoise
+            python312Packages.psycopg2-binary
             python312Packages.pip
             python312Packages.python-lsp-server
             nodejs_23
