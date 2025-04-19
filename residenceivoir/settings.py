@@ -35,7 +35,7 @@ ALLOWED_HOSTS_STR = os.environ.get('ALLOWED_HOSTS')
 if ALLOWED_HOSTS_STR:
     ALLOWED_HOSTS = ALLOWED_HOSTS_STR.split(',')
 else:
-    ALLOWED_HOSTS = '127.0.0.1'
+    ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -84,20 +84,24 @@ WSGI_APPLICATION = 'residenceivoir.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
-DATABASES = {
-    'default': dj_database_url.config(
-        # Use sqlite locally if DATABASE_URL is not set
+
+DEV = os.environ.get('DEV', 'False') == 'True'
+if DEV:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': dj_database_url.config(
+            # Use sqlite locally if DATABASE_URL is not set
         conn_max_age=600, # Optional: connection pooling
         ssl_require=True
-    )
-}
+        )
+    }
 
 
 # Password validation
