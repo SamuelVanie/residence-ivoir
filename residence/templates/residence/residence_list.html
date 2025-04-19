@@ -1,20 +1,25 @@
 {% load static %} {% include 'residence/navbar.html' %}
 <link rel="stylesheet" href="{% static 'css/residence_list.css' %}" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Nos Résidences</title>
 <body>
   <div class="page-wrapper">
     
     <main class="main-content">
-      <div class="filter-dropdown-container">
-        <select id="roomFilterDropdown" name="rooms">
-          <option value="">Nombre de chambre</option>
-          <option value="1">1 chambre</option>
-          <option value="2">2 chambres</option>
-          <option value="3">3 chambres</option>
-          <option value="4">4 chambres</option>
-          <option value="5">5+ chambres</option>
-        </select>
+      <div class="filter-controls">
+        <div class="filter-dropdown-container">
+          <select id="roomFilterDropdown" name="rooms">
+            <option value="">Nombre de chambre</option>
+            <option value="1">1 chambre</option>
+            <option value="2">2 chambres</option>
+            <option value="3">3 chambres</option>
+            <option value="4">4 chambres</option>
+            <option value="5">5+ chambres</option>
+          </select>
+        </div>
+        <!-- New Budget Filter Button (visible on small screens) -->
+        <button id="budgetFilterBtn" class="btn btn-filter">Filtrer par budget</button>
       </div>
 
       <section id="residenceList" class="residence-list-area">
@@ -112,7 +117,8 @@
       </nav>
     </main>
 
-    <aside class="filter-sidebar">
+    <!-- Keep the sidebar for larger screens -->
+    <aside class="filter-sidebar" id="budget-filter">
       <h2 class="filter-title">Budget</h2>
       <div class="filter-group">
         <div class="budget-option">
@@ -147,6 +153,47 @@
       <button class="btn btn-clear-filters" onclick="clearFilters()">Effacer Filtres</button>
     </aside>
 
+    <!-- New Budget Filter Modal for small screens -->
+    <div id="budget-filter-modal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close-btn budget-modal-close">×</span>
+        <h3>Filtrer par budget</h3>
+        <div class="filter-group">
+          <div class="budget-option">
+            <input type="radio" id="modalBudgetRange50_100" name="modal_budget_range" value="50000-100000">
+            <label for="modalBudgetRange50_100">50 000 FCFA - 100 000 FCFA</label>
+          </div>
+          <div class="budget-option">
+            <input type="radio" id="modalBudgetRange100_150" name="modal_budget_range" value="100000-150000">
+            <label for="modalBudgetRange100_150">100 000 FCFA - 150 000 FCFA</label>
+          </div>
+          <div class="budget-option">
+            <input type="radio" id="modalBudgetRange150_200" name="modal_budget_range" value="150000-200000">
+            <label for="modalBudgetRange150_200">150 000 FCFA - 200 000 FCFA</label>
+          </div>
+          <div class="budget-option">
+            <input type="radio" id="modalBudgetRange200_250" name="modal_budget_range" value="200000-250000">
+            <label for="modalBudgetRange200_250">200 000 FCFA - 250 000 FCFA</label>
+          </div>
+          <div class="budget-option">
+            <input type="radio" id="modalBudgetRange250_inf" name="modal_budget_range" value="250000-inf">
+            <label for="modalBudgetRange250_inf">250 000+ FCFA</label>
+          </div>
+          <div class="budget-option custom-range">
+            <div class="custom-inputs">
+              <span class="custom-label">Choisir:</span>
+              <input type="number" id="modalMinBudget" name="modal_min_budget" placeholder="Min" step="1000">
+              <span>à</span>
+              <input type="number" id="modalMaxBudget" name="modal_max_budget" placeholder="Max" step="1000">
+            </div>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-clear-filters" id="modalClearFilters">Effacer Filtres</button>
+          <button type="button" class="btn btn-apply-filter">Appliquer</button>
+        </div>
+      </div>
+    </div>
 
     {# --- Reservation Modal --- #}
     <div id="reservation-modal" class="modal">
@@ -184,8 +231,6 @@
    const minBudgetInput = document.getElementById('minBudget');
    const maxBudgetInput = document.getElementById('maxBudget');
 
-
-
    // Modal Elements
    const reservationModal = document.getElementById('reservation-modal');
    const modalCloseBtn = reservationModal.querySelector('.modal-close-btn');
@@ -194,7 +239,15 @@
    const modalResidenceNameH3 = document.getElementById('modalResidenceName');
    const modalResidenceIdInput = document.getElementById('modalResidenceId'); // Input to set residence_id
 
-
+   // Budget Filter Modal Elements
+   const budgetFilterModal = document.getElementById('budget-filter-modal');
+   const budgetFilterBtn = document.getElementById('budgetFilterBtn');
+   const budgetModalClose = budgetFilterModal.querySelector('.budget-modal-close');
+   const modalBudgetRadios = document.querySelectorAll('input[name="modal_budget_range"]');
+   const modalMinBudgetInput = document.getElementById('modalMinBudget');
+   const modalMaxBudgetInput = document.getElementById('modalMaxBudget');
+   const applyFilterBtn = budgetFilterModal.querySelector('.btn-apply-filter');
+   const modalClearFiltersBtn = document.getElementById('modalClearFilters');
    
    // --- HTML Generation (Update to include description) ---
    function generateResidenceHTML(residence) {
@@ -306,6 +359,9 @@
      budgetRadios.forEach((radio) => (radio.checked = false));
      minBudgetInput.value = "";
      maxBudgetInput.value = "";
+     modalBudgetRadios.forEach((radio) => (radio.checked = false));
+     modalMinBudgetInput.value = "";
+     modalMaxBudgetInput.value = "";
      showLoadingIndicator();
      fetch(`/residences/filter_by_rooms/rooms${rooms}/`)
        .then(response => { if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); return response.json(); })
@@ -313,20 +369,53 @@
        .catch(error => { console.error("Fetch error (rooms):", error); showError("Impossible de charger les résidences."); });
    }
 
-   function filterResidencesByBudget() {
-     let minBudget = minBudgetInput.value;
-     let maxBudget = maxBudgetInput.value;
-     const budgetRange = document.querySelector('input[name="budget_range"]:checked');
+   function filterResidencesByBudget(fromModal = false) {
+     let minBudget, maxBudget, budgetRange;
+     
+     if (fromModal) {
+       minBudget = modalMinBudgetInput.value;
+       maxBudget = modalMaxBudgetInput.value;
+       budgetRange = document.querySelector('input[name="modal_budget_range"]:checked');
+     } else {
+       minBudget = minBudgetInput.value;
+       maxBudget = maxBudgetInput.value;
+       budgetRange = document.querySelector('input[name="budget_range"]:checked');
+     }
+     
      roomFilterDropdown.value = "";
 
      if (budgetRange) {
        const rangeValues = budgetRange.value.split("-");
        minBudget = rangeValues[0];
        maxBudget = rangeValues[1] === "inf" ? "" : rangeValues[1];
+       
+       // Sync both UI states
        minBudgetInput.value = "";
        maxBudgetInput.value = "";
+       modalMinBudgetInput.value = "";
+       modalMaxBudgetInput.value = "";
+       
+       // Sync radio buttons
+       if (fromModal) {
+         const sidebarEquivalent = document.querySelector(`input[name="budget_range"][value="${budgetRange.value}"]`);
+         if (sidebarEquivalent) sidebarEquivalent.checked = true;
+       } else {
+         const modalEquivalent = document.querySelector(`input[name="modal_budget_range"][value="${budgetRange.value}"]`);
+         if (modalEquivalent) modalEquivalent.checked = true;
+       }
      } else if (minBudget || maxBudget) {
+       // Sync custom inputs
+       if (fromModal) {
+         minBudgetInput.value = minBudget;
+         maxBudgetInput.value = maxBudget;
+       } else {
+         modalMinBudgetInput.value = minBudget;
+         modalMaxBudgetInput.value = maxBudget;
+       }
+       
+       // Clear radio selections
        budgetRadios.forEach((radio) => (radio.checked = false));
+       modalBudgetRadios.forEach((radio) => (radio.checked = false));
      } else {
        return;
      }
@@ -344,6 +433,11 @@
        .then(response => { if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); return response.json(); })
        .then(updateResidenceList)
        .catch(error => { console.error("Fetch error (budget):", error); showError("Impossible de charger les résidences."); });
+     
+     // Close modal if filtering from modal
+     if (fromModal) {
+       closeBudgetModal();
+     }
    }
 
    // --- Clear Filters ---
@@ -351,7 +445,10 @@
      roomFilterDropdown.value = "";
      minBudgetInput.value = "";
      maxBudgetInput.value = "";
+     modalMinBudgetInput.value = "";
+     modalMaxBudgetInput.value = "";
      budgetRadios.forEach((radio) => (radio.checked = false));
+     modalBudgetRadios.forEach((radio) => (radio.checked = false));
      window.location.href = window.location.pathname;
    }
 
@@ -378,19 +475,39 @@
      }
    }
 
+   // --- Budget Modal Functions ---
+   function openBudgetModal() {
+     budgetFilterModal.style.display = 'block';
+   }
+
+   function closeBudgetModal() {
+     budgetFilterModal.style.display = 'none';
+   }
+
    // --- Event Listeners ---
    roomFilterDropdown.addEventListener('change', filterResidencesByRooms);
-   budgetRadios.forEach(radio => radio.addEventListener('change', filterResidencesByBudget));
-   minBudgetInput.addEventListener('change', filterResidencesByBudget);
-   maxBudgetInput.addEventListener('change', filterResidencesByBudget);
+   budgetRadios.forEach(radio => radio.addEventListener('change', () => filterResidencesByBudget(false)));
+   minBudgetInput.addEventListener('change', () => filterResidencesByBudget(false));
+   maxBudgetInput.addEventListener('change', () => filterResidencesByBudget(false));
 
+   // Budget Modal Event Listeners
+   budgetFilterBtn.addEventListener('click', openBudgetModal);
+   budgetModalClose.addEventListener('click', closeBudgetModal);
+   applyFilterBtn.addEventListener('click', () => filterResidencesByBudget(true));
+   modalClearFiltersBtn.addEventListener('click', clearFilters);
+
+   // Modal Budget Radio Buttons
+   modalBudgetRadios.forEach(radio => {
+     radio.addEventListener('change', function() {
+       // Just store the selection, apply on button click
+     });
+   });
 
    // Clear button listener (if not using onclick)
    const clearButton = document.querySelector('.btn-clear-filters');
    if (clearButton && !clearButton.hasAttribute('onclick')) {
      clearButton.addEventListener('click', clearFilters);
    }
-
 
    function openModal(button) {
      const residenceId = button.dataset.residenceId;
@@ -413,7 +530,6 @@
      reservationModal.style.display = 'none';
    }
 
-
    residenceListDiv.addEventListener('click', function(event) {
      if (event.target.classList.contains('description-toggle')) {
        toggleDescription(event.target);
@@ -426,10 +542,13 @@
    modalCloseBtn.addEventListener('click', closeModal);
    modalCancelBtn.addEventListener('click', closeModal);
 
-   // Close modal if user clicks outside the modal content
+   // Close modals if user clicks outside the modal content
    window.addEventListener('click', function(event) {
      if (event.target == reservationModal) {
        closeModal();
+     }
+     if (event.target == budgetFilterModal) {
+       closeBudgetModal();
      }
    });
 

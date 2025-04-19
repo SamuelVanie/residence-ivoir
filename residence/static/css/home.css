@@ -351,3 +351,121 @@ a:hover {
   display: block; /* Make button block level */
   margin: 1.5rem auto 0 auto; /* Center button */
 }
+
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  /* Header adjustments */
+  .header-title h1 {
+    width: 90%;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+  }
+  
+  /* Benefit statement adjustments */
+  .benefit-statement {
+    padding: 40px 0;
+  }
+  
+  .benefit-statement h2 {
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+  }
+  
+  /* Welcome hero adjustments */
+  .welcome-hero {
+    min-height: 300px;
+  }
+  
+  /* Feature focus adjustments */
+  .feature-content {
+    padding-top: 40px;
+    padding-bottom: 30px;
+  }
+  
+  .feature-content p {
+    font-size: 1rem;
+  }
+  
+  /* Services grid adjustments */
+  .services-section {
+    padding: 40px 0;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .service-item .more-info {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  /* Gallery grid adjustments */
+  .gallery-section {
+    padding: 40px 0;
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  /* Contact section adjustments */
+  .contact-section {
+    padding: 40px 0;
+  }
+  
+  .contact-form {
+    padding: 0 15px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  /* Container padding adjustments */
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  /* Header adjustments */
+  .header-title h1 {
+    width: 100%;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+  
+  /* Button adjustments for small screens */
+  .btn {
+    padding: 0.6rem 1.4rem;
+    font-size: 0.9rem;
+    width: 100%;
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Benefit statement further reduction */
+  .benefit-statement h2 {
+    font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+  }
+  
+  /* Gallery to single column on very small screens */
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Form element adjustments */
+  .contact-form input[type="text"],
+  .contact-form textarea {
+    padding: 10px 12px;
+  }
+  
+  /* Service items adjustments */
+  .service-item h3 {
+    font-size: 1.1rem;
+  }
+  
+  .service-item p {
+    font-size: 0.9rem;
+  }
+}
