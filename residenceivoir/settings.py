@@ -98,6 +98,7 @@ else:
     DATABASES = {
         'default': dj_database_url.config(
             # Use sqlite locally if DATABASE_URL is not set
+            default=os.environ.get('DATABASE_URL'),
             conn_max_age=600, # Optional: connection pooling
             ssl_require=True
         )
