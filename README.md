@@ -2,7 +2,13 @@
 
 Residence Ivoir is a showcase project for a fictional real estate rental service in Ivory Coast. It's built with Django and is designed to be easily deployed to Heroku.
 
+## Screenshots
 
+### Homepage
+<img src="homepage.jpeg" height="650">
+
+### Residences Screen
+![Residences Screen](residences_screen.jpeg)
 
 ## Features
 
