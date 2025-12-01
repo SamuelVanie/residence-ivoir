@@ -25,12 +25,14 @@
             python312Packages.python-lsp-server
             nodejs_23
             nodePackages.prettier
-            heroku
+            # heroku
             postgresql
           ];
 
           shellHook = ''
-             echo "Thanks y'all";
+             echo "Thanks y'all"
+             export DEBUG=True
+             export DEV=True
           '';
         };
       });
